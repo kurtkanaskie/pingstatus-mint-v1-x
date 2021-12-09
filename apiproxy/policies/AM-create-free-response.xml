@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-create-free-response">
+    <DisplayName>AM-create-free-response</DisplayName>
+    <Set>
+        <Headers>
+            <Header name="X-Monetization-Weight">1</Header>
+        </Headers>
+        <Payload contentType="application/json">
+{
+    "client": "{client.host}",
+    "organization": "{organization.name}",
+    "environment": "{environment.name}",
+    "application": "{verifyapikey.VA-Header.developer.app.name}",
+    "product": "{verifyapikey.VA-Header.apiproduct.name}",
+    "path": "{proxy.basepath}{proxy.pathsuffix}",
+    "time": "{system.time}",
+    "latency": {total_request_time},
+    "message":"FREE"
+}
+</Payload>
+        <StatusCode>200</StatusCode>
+        <ReasonPhrase>OK</ReasonPhrase>
+    </Set>
+</AssignMessage>

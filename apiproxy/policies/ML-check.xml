@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MonetizationLimitsCheck continueOnError="false" enabled="true" name="ML-check">
+    <DisplayName>ML-check</DisplayName>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <FaultResponse>
+        <Set>
+            <Payload contentType="application/json">
+{
+    "error":"Usage has been exceeded: status={mint.limitscheck.status_message} blocked=({mint.limitscheck.is_request_blocked}) or app developer ({developer.email}) has been suspended, subscription={mint.limitscheck.is_subscription_found}",
+    "statusMesssge" : "{mint.limitscheck.status_message}",
+    "requestBlocked": "{mint.limitscheck.is_request_blocked}",
+    "subscriptionFound":"{mint.limitscheck.is_subscription_found}"
+}
+</Payload>
+            <StatusCode>402</StatusCode>
+            <ReasonPhrase>Payment Required</ReasonPhrase>
+        </Set>
+    </FaultResponse>
+</MonetizationLimitsCheck>

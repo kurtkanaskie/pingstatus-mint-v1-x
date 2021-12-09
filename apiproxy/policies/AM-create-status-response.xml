@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-create-status-response">
+    <DisplayName>AM-create-status-response</DisplayName>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <Set>
+        <Headers>
+            <Header name="X-Monetization-Weight">2</Header>
+        </Headers>
+        <Payload contentType="application/json">
+{
+    "organization": "{organization.name}",
+    "environment": "{environment.name}",
+    "application": "{verifyapikey.VA-Header.developer.app.name}",
+    "product": "{verifyapikey.VA-Header.apiproduct.name}",
+    "mintVariables":{
+        "mint.limitscheck.purchased_product_name":"{mint.limitscheck.purchased_product_name}",
+        "mint.limitscheck.is_subscription_found":"{mint.limitscheck.is_subscription_found}",
+        "mint.limitscheck.is_request_blocked":"{mint.limitscheck.is_request_blocked}",
+        "mint.limitscheck.status_message":"{mint.limitscheck.status_message}",
+        "mint.subscription_start_time_ms":"{mint.subscription_start_time_ms}",
+        "mint.subscription_end_time_ms":"{mint.subscription_end_time_ms}",
+        "mint.mintng_consumption_pricing_rates":"{mint.mintng_consumption_pricing_rates}",
+        "mint.mintng_consumption_pricing_type":"{mint.mintng_consumption_pricing_type}",
+        "mint.mintng_rate":"{mint.mintng_rate}",
+        "mint.mintng_rate_plan_id":"{mint.mintng_rate_plan_id}",
+        "mint.rateplan_start_time_ms":"{mint.rateplan_start_time_ms}",
+        "mint.rateplan_end_time_ms":"{mint.rateplan_end_time_ms}",
+        "mint.mintng_is_apiproduct_monetized":"{mint.mintng_is_apiproduct_monetized}"
+    },
+    "developerEmail": "{verifyapikey.VA-header.developer.email}",
+    "developerFirstName": "{verifyapikey.VA-Header.developer.firstName}",
+    "developerLastName": "{verifyapikey.VA-Header.developer.lastName}",
+    "quota":"{verifyapikey.VA-Header.apiproduct.developer.quota.limit} per {verifyapikey.VA-Header.apiproduct.developer.quota.interval} {verifyapikey.VA-Header.apiproduct.developer.quota.timeunit}",
+    "used":"{ratelimit.QU-monetization-enforce.used.count} of {ratelimit.QU-monetization-enforce.allowed.count} with {ratelimit.QU-monetization-enforce.available.count} available and {ratelimit.QU-monetization-enforce.exceed.count} exceeded",
+    "apiproxy": "{apiproxy.name}",
+    "apiproxyRevision": "{apiproxy.revision}",
+    "path": "{proxy.basepath}{proxy.pathsuffix}",
+    "time": "{system.time}",
+    "proxyLatency": {total_client_time},
+    "targetLatency": {total_target_time},
+    "latency": {total_request_time},
+    "message":"STATUS",
+    "targetResponse": {
+        "headers":{
+            "X-CorrelationId":"{response.header.X-Correlation-ID}"
+        },
+        "content":{response.content}
+    }
+}
+</Payload>
+        <StatusCode>200</StatusCode>
+        <ReasonPhrase>OK</ReasonPhrase>
+    </Set>
+</AssignMessage>

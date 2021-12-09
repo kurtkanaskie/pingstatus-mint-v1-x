@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Quota continueOnError="false" enabled="true" name="QU-monetization-enforce" type="flexi">
+    <DisplayName>QU-monetization-enforce</DisplayName>
+    <UseQuotaConfigInAPIProduct stepName="VA-Header">
+        <DefaultConfig>
+            <Allow>42</Allow>
+            <Interval>1</Interval>
+            <TimeUnit>minute</TimeUnit>
+        </DefaultConfig>
+    </UseQuotaConfigInAPIProduct>
+    <Distributed>true</Distributed>
+    <Synchronous>true</Synchronous>
+</Quota>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-monetization-block">
+    <DisplayName>AM-monetization-block</DisplayName>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <Set>
+        <Headers>
+            <Header name="X-Monetization-Success">false</Header>
+            <Header name="X-Monetization-Count">0</Header>
+            <Header name="X-Monetization-Weight">0</Header>
+            <Header name="X-Monetization-Developer">{verifyapikey.VA-Header.developer.email}</Header>
+            <Header name="X-Monetization-Application">{verifyapikey.VA-Header.developer.app.name}</Header>
+            <Header name="X-Monetization-API-Product">{apiproduct.name}</Header>
+            <Header name="X-Monetization-Quota">{verifyapikey.VA-Header.apiproduct.developer.quota.limit} per {verifyapikey.VA-Header.apiproduct.developer.quota.interval} {verifyapikey.VA-Header.apiproduct.developer.quota.timeunit}</Header>
+            <Header name="X-Monetization-Used">{ratelimit.QU-MonetizationEnforce.used.count} of {ratelimit.QU-MonetizationEnforce.allowed.count} with {ratelimit.QU-MonetizationEnforce.available.count} available and {ratelimit.QU-MonetizationEnforce.exceed.count} exceeded</Header>
+        </Headers>
+    </Set>
+    <AssignVariable>
+        <Name>mint.limitscheck.is_request_blocked</Name>
+        <Value>true</Value>
+    </AssignVariable>
+</AssignMessage>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-monetization-success">
+    <DisplayName>AM-monetization-success</DisplayName>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <Set>
+        <Headers>
+            <Header name="X-Monetization-Success">true</Header>
+            <Header name="X-Monetization-Count">1</Header>
+            <!-- <Header name="X-Monetization-Weight">1</Header> set in respective flows -->
+            <Header name="X-Monetization-Developer">{verifyapikey.VA-Header.developer.email}</Header>
+            <Header name="X-Monetization-Application">{verifyapikey.VA-Header.developer.app.name}</Header>
+            <Header name="X-Monetization-API-Product">{mint.limitscheck.purchased_product_name}</Header>
+            <Header name="X-Monetization-Rate-Plan-Id">{mint.mintng_rate_plan_id}</Header>
+            <!-- mint.mintng_rate isn't available as flow variable -->
+            <Header name="X-Monetization-Rate">0.01</Header>
+            <Header name="X-Monetization-Quota">{verifyapikey.VA-Header.apiproduct.developer.quota.limit} per {verifyapikey.VA-Header.apiproduct.developer.quota.interval} {verifyapikey.VA-Header.apiproduct.developer.quota.timeunit}</Header>
+            <Header name="X-Monetization-Used">{ratelimit.QU-MonetizationEnforce.used.count} of {ratelimit.QU-MonetizationEnforce.allowed.count} with {ratelimit.QU-MonetizationEnforce.available.count} available and {ratelimit.QU-MonetizationEnforce.exceed.count} exceeded</Header>
+        </Headers>
+    </Set>
+    <Variable/>
+</AssignMessage>

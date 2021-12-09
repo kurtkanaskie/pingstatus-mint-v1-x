@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DataCapture name="DC-monetization" continueOnError="false" enabled="true">
+    <DisplayName>DC-monetization</DisplayName>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <Capture>
+        <Collect ref="response.header.x-monetization-success" default="false"/>
+        <DataCollector>dc_monetization_success</DataCollector>
+    </Capture>
+    <Capture>
+        <Collect ref="response.header.x-monetization-rate-plan-id"/>
+        <DataCollector>dc_monetization_rate_plan_id</DataCollector>
+    </Capture>
+    <Capture>
+        <Collect ref="response.header.x-monetization-rate" default="0"/>
+        <DataCollector>dc_monetization_rate</DataCollector>
+    </Capture>
+    <Capture>
+        <Collect ref="response.header.x-monetization-count" default="0"/>
+        <DataCollector>dc_monetization_count</DataCollector>
+    </Capture>
+    <Capture>
+        <Collect ref="response.header.x-monetization-weight" default="0"/>
+        <DataCollector>dc_monetization_weight</DataCollector>
+    </Capture>
+</DataCapture>

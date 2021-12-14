@@ -3,6 +3,6 @@
     <DisplayName>AM-config-properties</DisplayName>
     <AssignVariable>
         <Name>private.flow.target.basepath</Name>
-        <PropertySetRef>pingstatus-v1.target_basepath</PropertySetRef>
+        <PropertySetRef>{apiproxy.name}.target_basepath</PropertySetRef>
     </AssignVariable>
 </AssignMessage>

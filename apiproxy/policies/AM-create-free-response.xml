@@ -12,6 +12,7 @@
     "environment": "{environment.name}",
     "application": "{verifyapikey.VA-Header.developer.app.name}",
     "product": "{verifyapikey.VA-Header.apiproduct.name}",
+    "apiproxy": "{apiproxy.name}",
     "path": "{proxy.basepath}{proxy.pathsuffix}",
     "time": "{system.time}",
     "latency": {total_request_time},

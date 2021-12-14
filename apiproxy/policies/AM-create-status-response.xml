@@ -27,12 +27,14 @@
         "mint.rateplan_end_time_ms":"{mint.rateplan_end_time_ms}",
         "mint.mintng_is_apiproduct_monetized":"{mint.mintng_is_apiproduct_monetized}"
     },
-    "developerEmail": "{verifyapikey.VA-header.developer.email}",
+    "developerEmail": "{verifyapikey.VA-Header.developer.email}",
     "developerFirstName": "{verifyapikey.VA-Header.developer.firstName}",
     "developerLastName": "{verifyapikey.VA-Header.developer.lastName}",
     "quota":"{verifyapikey.VA-Header.apiproduct.developer.quota.limit} per {verifyapikey.VA-Header.apiproduct.developer.quota.interval} {verifyapikey.VA-Header.apiproduct.developer.quota.timeunit}",
     "used":"{ratelimit.QU-monetization-enforce.used.count} of {ratelimit.QU-monetization-enforce.allowed.count} with {ratelimit.QU-monetization-enforce.available.count} available and {ratelimit.QU-monetization-enforce.exceed.count} exceeded",
+    "client": "{client.host}",
     "apiproxy": "{apiproxy.name}",
+    "basepath": "{proxy.basepath}",
     "apiproxyRevision": "{apiproxy.revision}",
     "path": "{proxy.basepath}{proxy.pathsuffix}",
     "time": "{system.time}",
@@ -42,7 +44,8 @@
     "message":"STATUS",
     "targetResponse": {
         "headers":{
-            "X-CorrelationId":"{response.header.X-Correlation-ID}"
+            "Content-Type":"{response.header.content-type}",
+            "Content-Length":"{response.header.content-length}"
         },
         "content":{response.content}
     }

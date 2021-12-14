@@ -1,0 +1,65 @@
+[
+    {
+        "name": "pingstatus-mint-v1-product-APIGEE_ENVIRONMENT",
+        "displayName": "pingstatus-mint-v1-product-APIGEE_ENVIRONMENT",
+        "approvalType": "auto",
+        "attributes": [{
+            "name": "access",
+            "value": "public"
+        }],
+        "environments": [
+            "test"
+        ],
+        "quota": "100",
+        "quotaInterval": "1",
+        "quotaTimeUnit": "day",
+        "createdAt": "1619468481472",
+        "lastModifiedAt": "1619468941426",
+        "operationGroup": {
+            "operationConfigs": [{
+                    "apiSource": "pingstatus-mint-v1",
+                    "operations": [{
+                        "resource": "/free",
+                        "methods": [
+                            "GET"
+                        ]
+                    }],
+                    "quota": {
+                        "limit": "1000",
+                        "interval": "1",
+                        "timeUnit": "day"
+                    }
+                },
+                {
+                    "apiSource": "pingstatus-mint-v1",
+                    "operations": [{
+                        "resource": "/ping",
+                        "methods": [
+                            "GET"
+                        ]
+                    }],
+                    "quota": {
+                        "limit": "1000",
+                        "interval": "1",
+                        "timeUnit": "day"
+                    }
+                },
+                {
+                    "apiSource": "pingstatus-mint-v1",
+                    "operations": [{
+                        "resource": "/status",
+                        "methods": [
+                            "GET"
+                        ]
+                    }],
+                    "quota": {
+                        "limit": "100",
+                        "interval": "1",
+                        "timeUnit": "day"
+                    }
+                }
+            ],
+            "operationConfigType": "proxy"
+        }
+    }
+]

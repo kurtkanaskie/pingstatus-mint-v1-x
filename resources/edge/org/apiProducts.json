@@ -8,7 +8,7 @@
             "value": "public"
         }],
         "environments": [
-            "test"
+            "APIGEE_ENVIRONMENT"
         ],
         "quota": "100",
         "quotaInterval": "1",

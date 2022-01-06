@@ -5,19 +5,32 @@
         <Message>
         Message.id = {request.header.id} 
         Mint: 
-            mint.limitscheck.is_request_blocked: {mint.limitscheck.is_request_blocked}
-            mint.limitscheck.is_subscription_found: {mint.limitscheck.is_subscription_found}
-            mint.limitscheck.purchased_product_name: {mint.limitscheck.purchased_product_name}
-            mint.limitscheck.status_message: {mint.limitscheck.status_message}
-            mint.mintng_consumption_pricing_rates: {mint.mintng_consumption_pricing_rates}
-            mint.mintng_consumption_pricing_type: {mint.mintng_consumption_pricing_type}
-            mint.mintng_is_apiproduct_monetized: {mint.mintng_is_apiproduct_monetized}
-            mint.mintng_rate: {mint.mintng_rate}
-            mint.mintng_rate_plan_id: {mint.mintng_rate_plan_id}
-            mint.rateplan_end_time_ms: {mint.rateplan_end_time_ms}
-            mint.rateplan_start_time_ms: {mint.rateplan_start_time_ms}
-            mint.subscription_end_time_ms: {mint.subscription_end_time_ms}
-            mint.subscription_start_time_ms: {mint.subscription_start_time_ms}
+        "mint.limitscheck.is_request_blocked":"{mint.limitscheck.is_request_blocked}",
+        "mint.limitscheck.is_subscription_found":"{mint.limitscheck.is_subscription_found}",
+        "mint.limitscheck.purchased_product_name":"{mint.limitscheck.purchased_product_name}",
+        "mint.limitscheck.status_message":"{mint.limitscheck.status_message}",
+        "mint.mintng_consumption_pricing_rates":"{mint.mintng_consumption_pricing_rates}",
+        "mint.mintng_consumption_pricing_type":"{mint.mintng_consumption_pricing_type}",
+        "mint.mintng_currency":"{mint.mintng_currency}",
+        "mint.mintng_dev_share":"{mint.mintng_dev_share}",
+        "mint.mintng_is_apiproduct_monetized":"{mint.mintng_is_apiproduct_monetized}",
+        "mint.mintng_price":"{mint.mintng_price}",
+        "mint.mintng_price_multiplier":"{mint.mintng_price_multiplier}",
+        "mint.mintng_rate":"{mint.mintng_rate}",
+        "mint.mintng_rate_before_multipliers":"{mint.mintng_rate_before_multipliers}",
+        "mint.mintng_rate_plan_id":"{mint.mintng_rate_plan_id}",
+        "mint.mintng_revenue_share_rates":"{mint.mintng_revenue_share_rates}",
+        "mint.mintng_revenue_share_type":"{mint.mintng_revenue_share_type}",
+        "mint.mintng_tx_success":"{mint.mintng_tx_success}",
+        "mint.prepaid_developer_balance":"{mint.prepaid_developer_balance}",
+        "mint.prepaid_developer_currency":"{mint.prepaid_developer_currency}",
+        "mint.prepaid_updated_developer_usage":"{mint.prepaid_updated_developer_usage}",
+        "mint.rateplan_end_time_ms":"{mint.rateplan_end_time_ms}",
+        "mint.status":"{mint.status}",
+        "mint.status_code":"{mint.status_code}",
+        "mint.subscription_start_time_ms":"{mint.subscription_start_time_ms}",
+        "mint.subscription_end_time_ms":"{mint.subscription_end_time_ms}",
+        "mint.tx_success_result":"{mint.tx_success_result}"
         </Message>
         <Host>10.0.0.0</Host>
         <Port>556</Port>

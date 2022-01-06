@@ -1,7 +1,7 @@
 {
-    "cicd-developer-APIGEE_ENVIRONMENT@google.com": [
+    "cicd-developer-prepaid-APIGEE_ENVIRONMENT@google.com": [
         {
-            "name": "pingstatus-mint-v1-app-APIGEE_ENVIRONMENT",
+            "name": "pingstatus-mint-v1-app-prepaid-APIGEE_ENVIRONMENT",
             "apiProducts": [ "pingstatus-mint-v1-product-APIGEE_ENVIRONMENT" ],
             "keyExpiresIn": -1,
             "callbackUrl": "NA",

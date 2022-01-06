@@ -2,6 +2,7 @@
     {
         "name": "pingstatus-mint-v1-product-APIGEE_ENVIRONMENT",
         "displayName": "pingstatus-mint-v1-product-APIGEE_ENVIRONMENT",
+        "description": "Product to test pingstatus-mint-v1 in APIGEE_ENVIRONMENT.",
         "approvalType": "auto",
         "attributes": [{
             "name": "access",

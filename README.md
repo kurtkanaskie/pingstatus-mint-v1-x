@@ -23,7 +23,7 @@ This code is open source.
 
 ### Initial build and deploy to pingstatus-mint-v1
 ```
-mvn -P apigeex-mint-kurt-test install
+mvn -P test install
 ```
 
 ### Cloud Build all at once

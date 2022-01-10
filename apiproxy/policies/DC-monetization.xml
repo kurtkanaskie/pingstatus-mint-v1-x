@@ -4,6 +4,23 @@
     <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
     <Capture>
         <Collect ref="response.header.x-monetization-success" default="false"/>
+        <DataCollector scope="monetization">transactionSuccess</DataCollector>
+    </Capture>
+    <Capture>
+        <Collect ref="response.header.x-monetization-weight" default="1"/>
+        <DataCollector scope="monetization">perUnitPriceMultiplier</DataCollector>
+    </Capture>
+    <Capture>
+        <Collect ref="response.header.x-monetization-currency" default="USD"/>
+        <DataCollector scope="monetization">currency</DataCollector>
+    </Capture>
+    <Capture>
+        <Collect ref="response.header.x-monetization-revenue-share" default="0"/>
+        <DataCollector scope="monetization">revShareGrossPrice</DataCollector>
+    </Capture>
+    <!-- hack -->
+    <Capture>
+        <Collect ref="response.header.x-monetization-success" default="false"/>
         <DataCollector>dc_monetization_success</DataCollector>
     </Capture>
     <Capture>

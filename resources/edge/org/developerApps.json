@@ -1,8 +1,15 @@
 {
     "cicd-developer-prepaid-APIGEE_ENVIRONMENT@google.com": [
         {
-            "name": "pingstatus-mint-v1-app-prepaid-APIGEE_ENVIRONMENT",
-            "apiProducts": [ "pingstatus-mint-v1-product-APIGEE_ENVIRONMENT" ],
+            "name": "pingstatus-mint-v1-app-prepaid-basic-APIGEE_ENVIRONMENT",
+            "apiProducts": [ "pingstatus-mint-v1-product-basic-APIGEE_ENVIRONMENT" ],
+            "keyExpiresIn": -1,
+            "callbackUrl": "NA",
+            "scopes": []
+        },
+        {
+            "name": "pingstatus-mint-v1-app-prepaid-revshare-APIGEE_ENVIRONMENT",
+            "apiProducts": [ "pingstatus-mint-v1-product-revshare-APIGEE_ENVIRONMENT" ],
             "keyExpiresIn": -1,
             "callbackUrl": "NA",
             "scopes": []

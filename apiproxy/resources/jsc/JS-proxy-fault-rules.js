@@ -4,19 +4,7 @@ var faultName = context.getVariable ("fault.name");
 var faultString = context.getVariable ("error.message");
 // var proxyName = context.getVariable ("apiproxy.name");
 print( "faultName: " + faultName + " faultString: " + faultString);
-
-if( faultName === "subscription_not_found_for_developer" ) {
-    var faultObj = JSON.parse(context.getVariable('message.content'));
-    // This is a custom response from the ML-check policy
-    var mintMessageFromMLCheckPolicy = faultObj.error;
-}
-else if( faultName !== "RaiseFault" ) {
-    var faultObj = JSON.parse(context.getVariable('message.content'));
-    // print('faultObj : ' + JSON.stringify(faultObj));
-    // Consider escaping JSON "{escapeJSON(faultMessage)}";
-    var faultMessage = faultObj.fault.faultstring;
-    print( "faultName: " + faultName + " faultMessage: " + faultMessage);
-}
+print("faultObj : " + context.getVariable('message.content'));
 
 var code;
 var description;
@@ -26,10 +14,12 @@ var reasonPhrase;
 switch(faultName) {
     // For Monetization, continue onerror and set variables in Raise Fault RF-monetization    
     case "subscription_not_found_for_developer" :
+    case "developer_usage_exceeds_balance" :
         responseCode = "402";
         reasonPhrase = "Payment Required";
         code = "402.001";
-        description = mintMessageFromMLCheckPolicy;
+        var faultObj = JSON.parse(context.getVariable('message.content'));
+        description = faultObj.error;
         break;
     // For Monetization, continue onerror and set variables in Raise Fault RF-monetization    
     case "QuotaViolation" :

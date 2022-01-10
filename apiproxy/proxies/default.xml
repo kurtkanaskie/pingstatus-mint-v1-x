@@ -9,9 +9,6 @@
         <Step>
             <Name>AM-set-standard-error-response</Name>
         </Step>
-        <Step>
-            <Name>AM-monetization-block</Name>
-        </Step>
         <AlwaysEnforce>true</AlwaysEnforce>
     </DefaultFaultRule>
     <FaultRules>
@@ -65,7 +62,7 @@
                     <Name>JS-set-time-data</Name>
                 </Step>
                 <Step>
-                    <Name>AM-monetization-block</Name>
+                    <Name>AM-monetization-free</Name>
                 </Step>
                 <Step>
                     <Name>AM-create-free-response</Name>
@@ -94,7 +91,7 @@
                     <Name>AM-create-ping-response</Name>
                 </Step>
                 <Step>
-                    <Name>AM-monetization-success</Name>
+                    <Name>AM-monetization-charge</Name>
                 </Step>
             </Response>
             <Condition>(proxy.pathsuffix MatchesPath "/ping") and (request.verb = "GET")</Condition>
@@ -120,7 +117,7 @@
                     <Name>AM-create-status-response</Name>
                 </Step>
                 <Step>
-                    <Name>AM-monetization-success</Name>
+                    <Name>AM-monetization-charge</Name>
                 </Step>
             </Response>
             <Condition>(proxy.pathsuffix MatchesPath "/status") and (request.verb = "GET")</Condition>

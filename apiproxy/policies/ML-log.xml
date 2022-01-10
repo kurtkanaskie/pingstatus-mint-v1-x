@@ -7,6 +7,8 @@
         Mint: 
         "mint.limitscheck.is_request_blocked":"{mint.limitscheck.is_request_blocked}",
         "mint.limitscheck.is_subscription_found":"{mint.limitscheck.is_subscription_found}",
+        "mint.limitscheck.prepaid_developer_balance":"{mint.limitscheck.prepaid_developer_balance}",
+        "mint.limitscheck.prepaid_developer_currency":"{mint.limitscheck.prepaid_developer_currency}",
         "mint.limitscheck.purchased_product_name":"{mint.limitscheck.purchased_product_name}",
         "mint.limitscheck.status_message":"{mint.limitscheck.status_message}",
         "mint.mintng_consumption_pricing_rates":"{mint.mintng_consumption_pricing_rates}",

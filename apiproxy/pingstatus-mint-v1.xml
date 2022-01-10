@@ -1,32 +1,32 @@
-<APIProxy revision="51" name="pingstatus-mint-v1">
+<APIProxy revision="74" name="pingstatus-mint-v1">
     <DisplayName>pingstatus-mint-v1</DisplayName>
     <Description>Does CORS get counted?</Description>
-    <CreatedAt>1631897241504</CreatedAt>
-    <LastModifiedAt>1631897241504</LastModifiedAt>
+    <CreatedAt>1641423492095</CreatedAt>
+    <LastModifiedAt>1641423521074</LastModifiedAt>
     <BasePaths>/pingstatus-mint/v1</BasePaths>
     <Policies>
         <Policy>AM-create-ping-response</Policy>
         <Policy>AM-set-get-status-pathsuffix</Policy>
+        <Policy>VA-Header</Policy>
         <Policy>AM-target-headers</Policy>
         <Policy>AM-set-proxy-default-error-vars</Policy>
         <Policy>JS-set-time-data</Policy>
         <Policy>RF-path-suffix-not-found</Policy>
+        <Policy>AM-create-free-response</Policy>
         <Policy>AM-remove-x-apikey</Policy>
         <Policy>AM-debug</Policy>
         <Policy>AM-create-status-response</Policy>
+        <Policy>ML-log</Policy>
         <Policy>AM-set-standard-error-response</Policy>
         <Policy>JS-proxy-fault-rules</Policy>
         <Policy>AM-set-service-unavailable-error-variables</Policy>
-        <Policy>AM-config-properties</Policy>
-        <Policy>ML-check</Policy>
-        <Policy>ML-log</Policy>
         <Policy>DC-monetization</Policy>
         <Policy>CORS</Policy>
-        <Policy>VA-Header</Policy>
-        <Policy>AM-create-free-response</Policy>
+        <Policy>ML-check</Policy>
         <Policy>QU-monetization-enforce</Policy>
-        <Policy>AM-monetization-block</Policy>
-        <Policy>AM-monetization-success</Policy>
+        <Policy>AM-config-properties</Policy>
+        <Policy>AM-monetization-free</Policy>
+        <Policy>AM-monetization-charge</Policy>
     </Policies>
     <ProxyEndpoints>
         <ProxyEndpoint>default</ProxyEndpoint>

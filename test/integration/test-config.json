@@ -3,7 +3,7 @@
         "domain": "API_NORTHBOUND_DOMAIN",
         "basepath": "/pingstatus-mint/v1",
         "apiproxy": "pingstatus-mint-v1",
-		"product":"pingstatus-mint-v1-product-APIGEE_ENVIRONMENT",
-        "app":"pingstatus-mint-v1-app-prepaid-APIGEE_ENVIRONMENT"
+		"product":"pingstatus-mint-v1-product-basic-APIGEE_ENVIRONMENT",
+        "app":"pingstatus-mint-v1-app-prepaid-basic-APIGEE_ENVIRONMENT"
     }
 }

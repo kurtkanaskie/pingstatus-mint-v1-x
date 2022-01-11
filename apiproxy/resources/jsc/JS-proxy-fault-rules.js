@@ -21,7 +21,6 @@ switch(faultName) {
         var faultObj = JSON.parse(context.getVariable('message.content'));
         description = faultObj.error;
         break;
-    // For Monetization, continue onerror and set variables in Raise Fault RF-monetization    
     case "QuotaViolation" :
         responseCode = "429";
         reasonPhrase = "Exceeded quota";
@@ -100,8 +99,14 @@ switch(faultName) {
         description = "Shared Flow Not Found";
         break;
     
-    case "RaiseFault" :
-        if ( context.getVariable("raisefault.RF-invalid-client-cn.failed") === true ) {
+    case "RaiseFault":
+        if ( context.getVariable("raisefault.RF-rateplan-not-available.failed") === true ) {
+            responseCode = "402";
+            reasonPhrase = "Payment Required";
+            code = "402.002";
+            var faultObj = JSON.parse(context.getVariable('message.content'));
+            description = faultObj.error;
+        } else if ( context.getVariable("raisefault.RF-invalid-client-cn.failed") === true ) {
             responseCode = "401";
             reasonPhrase = "Unauthorized";
             code = "401.001";

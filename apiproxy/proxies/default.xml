@@ -74,13 +74,14 @@
             <Description>proxy health check</Description>
             <Request>
                 <Step>
-                    <Name>ML-check</Name>
-                </Step>
-                <Step>
                     <Name>QU-monetization-enforce</Name>
                 </Step>
                 <Step>
-                    <Name>AM-debug</Name>
+                    <Name>ML-check</Name>
+                </Step>
+                <Step>
+                    <Condition>mint.limitscheck.status_message == "rateplan_not_available"</Condition>
+                    <Name>RF-rateplan-not-available</Name>
                 </Step>
             </Request>
             <Response>
@@ -106,7 +107,8 @@
                     <Name>ML-check</Name>
                 </Step>
                 <Step>
-                    <Name>AM-debug</Name>
+                    <Condition>mint.limitscheck.status_message == "rateplan_not_available"</Condition>
+                    <Name>RF-rateplan-not-available</Name>
                 </Step>
             </Request>
             <Response>

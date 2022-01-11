@@ -3,40 +3,24 @@
     <DisplayName>DC-monetization</DisplayName>
     <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
     <Capture>
-        <Collect ref="response.header.x-monetization-success" default="false"/>
-        <DataCollector scope="monetization">transactionSuccess</DataCollector>
-    </Capture>
-    <Capture>
-        <Collect ref="response.header.x-monetization-weight" default="1"/>
-        <DataCollector scope="monetization">perUnitPriceMultiplier</DataCollector>
-    </Capture>
-    <Capture>
         <Collect ref="response.header.x-monetization-currency" default="USD"/>
         <DataCollector scope="monetization">currency</DataCollector>
     </Capture>
     <Capture>
+        <Collect ref="response.header.x-monetization-success" default="false"/>
+        <DataCollector scope="monetization">transactionSuccess</DataCollector>
+    </Capture>
+    <Capture>
+        <Collect ref="response.header.x-monetization-multiplier" default="1"/>
+        <DataCollector scope="monetization">perUnitPriceMultiplier</DataCollector>
+    </Capture>
+    <!-- I want this to come from mint.minting_rate but it's not available -->
+    <Capture>
         <Collect ref="response.header.x-monetization-revenue-share" default="0"/>
         <DataCollector scope="monetization">revShareGrossPrice</DataCollector>
     </Capture>
-    <!-- hack -->
     <Capture>
-        <Collect ref="response.header.x-monetization-success" default="false"/>
-        <DataCollector>dc_monetization_success</DataCollector>
-    </Capture>
-    <Capture>
-        <Collect ref="response.header.x-monetization-rate-plan-id"/>
-        <DataCollector>dc_monetization_rate_plan_id</DataCollector>
-    </Capture>
-    <Capture>
-        <Collect ref="response.header.x-monetization-rate" default="0"/>
-        <DataCollector>dc_monetization_rate</DataCollector>
-    </Capture>
-    <Capture>
-        <Collect ref="response.header.x-monetization-count" default="0"/>
-        <DataCollector>dc_monetization_count</DataCollector>
-    </Capture>
-    <Capture>
-        <Collect ref="response.header.x-monetization-weight" default="0"/>
-        <DataCollector>dc_monetization_weight</DataCollector>
+        <Collect ref="system.uuid" default="0"/>
+        <DataCollector>dc_system_uuid</DataCollector>
     </Capture>
 </DataCapture>

@@ -5,8 +5,6 @@
     <Set>
         <Headers>
             <Header name="X-Monetization-Success">false</Header>
-            <Header name="X-Monetization-Count">0</Header>
-            <Header name="X-Monetization-Weight">0</Header>
             <Header name="X-Monetization-Developer">{verifyapikey.VA-Header.developer.email}</Header>
             <Header name="X-Monetization-Application">{verifyapikey.VA-Header.developer.app.name}</Header>
             <Header name="X-Monetization-API-Product">{apiproduct.name}</Header>

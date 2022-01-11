@@ -4,7 +4,9 @@
     <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
     <Set>
         <Headers>
-            <Header name="X-Monetization-Weight">2</Header>
+            <!-- this should be set from mint.minting_rate as it varies by band -->
+            <Header name="X-Monetization-Revenue-Share">0.2</Header>
+            <Header name="X-Monetization-Multiplier">2</Header>
         </Headers>
         <Payload contentType="application/json">
 {
@@ -32,6 +34,7 @@
         "mint.mintng_rate_plan_id":"{mint.mintng_rate_plan_id}",
         "mint.mintng_revenue_share_rates":"{mint.mintng_revenue_share_rates}",
         "mint.mintng_revenue_share_type":"{mint.mintng_revenue_share_type}",
+        "mint.mintng_dev_share":"{mint.mintng_dev_share}",
         "mint.mintng_tx_success":"{mint.mintng_tx_success}",
         "mint.prepaid_developer_balance":"{mint.prepaid_developer_balance}",
         "mint.prepaid_developer_currency":"{mint.prepaid_developer_currency}",

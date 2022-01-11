@@ -174,7 +174,7 @@
 							<value>${api.northbound.domain}</value>
 						</replacement>
 						<replacement>
-							<token>@DESCRIPTION</token>
+							<token>REPLACE_DESCRIPTION</token>
 							<value>commit ${commit} from branch ${branch} by ${user.name}</value>
 						</replacement>
 						<replacement>

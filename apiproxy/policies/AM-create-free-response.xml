@@ -2,9 +2,6 @@
 <AssignMessage continueOnError="false" enabled="true" name="AM-create-free-response">
     <DisplayName>AM-create-free-response</DisplayName>
     <Set>
-        <Headers>
-            <Header name="X-Monetization-Weight">1</Header>
-        </Headers>
         <Payload contentType="application/json">
 {
     "system.uuid":"{system.uuid}",

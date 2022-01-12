@@ -72,6 +72,29 @@ Via the source without replacements
 ### Other discrete commands
 * mvn -Ptest validate (runs all validate phases: lint, apigeelint, unit)
 * mvn jshint:lint
-* mvn -Ptest frontend:npm@apigeelint
-* mvn -Ptest frontend:npm@unit
-* mvn -Ptest frontend:npm@integration
+* mvn -P test frontend:npm@apigeelint
+* mvn -P test frontend:npm@unit
+* mvn -P test frontend:npm@integration
+
+
+
+### Pipeline
+```
+mvn -P test clean
+mvn -P test jshint:lint
+mvn -P test frontend:install-node-and-npm@install-node-and-npm
+mvn -P test frontend:npm@npm-install
+mvn -P test frontend:npm@apigeelint
+mvn -P test frontend:npm@unit
+mvn -P test resources:copy-resources@copy-resources
+mvn -P test replacer:replace@replace
+mvn -P test apigee-enterprise:configure
+mvn -P test apigee-config:targetservers
+mvn -P test apigee-config:resourcefiles
+mvn -P test apigee-enterprise:deploy
+mvn -P test apigee-config:apiproducts
+mvn -P test apigee-config:developers
+mvn -P test apigee-config:apps -Dapigee.app.ignoreAPIProducts=true # One set of keys
+mvn -P test apigee-config:exportAppKeys
+mvn -P test frontend:npm@integration
+```

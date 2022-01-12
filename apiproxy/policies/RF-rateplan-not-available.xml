@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault continueOnError="false" enabled="true" name="RF-rateplan-not-available">
+    <DisplayName>RF-rateplan-not-available</DisplayName>
+    <Properties/>
+    <FaultResponse>
+        <Set>
+            <Payload contentType="application/json">
+{
+    "error":"Rateplan not available: status={mint.limitscheck.status_message} blocked=({mint.limitscheck.is_request_blocked}) or app developer ({developer.email}) has been suspended, subscription={mint.limitscheck.is_subscription_found}, statusMesssge={mint.limitscheck.status_message}, application={verifyapikey.VA-Header.developer.app.name}, product={verifyapikey.VA-Header.apiproduct.name}",
+    "statusMesssge" : "{mint.limitscheck.status_message}",
+    "requestBlocked": "{mint.limitscheck.is_request_blocked}",
+    "subscriptionFound":"{mint.limitscheck.is_subscription_found}"
+}
+</Payload>
+            <StatusCode>402</StatusCode>
+            <ReasonPhrase>Payment Required</ReasonPhrase>
+        </Set>
+    </FaultResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

@@ -3,9 +3,6 @@
     <DisplayName>AM-set-standard-error-response</DisplayName>
     <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
     <Set>
-        <Headers>
-            <Header name="Content-Type">application/json</Header>
-        </Headers>
         <Payload contentType="application/json">
 {
     "system.uuid":"{system.uuid}",

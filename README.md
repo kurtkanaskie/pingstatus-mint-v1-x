@@ -26,57 +26,9 @@ This code is open source.
 mvn -P test install
 ```
 
-### Cloud Build all at once
+### Cloud Build all at once (TBD)
 * cloud-build-local --dryrun=true --substitutions=BRANCH_NAME=local,COMMIT_SHA=none .
 * cloud-build-local --dryrun=false --substitutions=BRANCH_NAME=local,COMMIT_SHA=none .
-
-## Other commands for iterations
-
-### Full install and test, but skip cleaning target
-* mvn -P test install -Dskip.clean=true
-
-### Skip clean and export - just install, deploy and test
-* mvn -P test install -Dskip.clean=true -Dskip.export=true -Dapigee.config.options=none -Dapi.testtag=@health
-
-### Just update Developers, Products and Apps
-* mvn -P test process-resources apigee-config:developers apigee-config:apiproducts apigee-config:apps apigee-config:exportAppKeys -Dskip.clean=true
-
-### Just update resource files
-* mvn -P test process-resources apigee-config:resourcefiles -Dskip.clean=true
-
-### Just update Target Servers
-* mvn -P test process-resources apigee-config:targetservers -Dskip.clean=true
-
-### Export App keys
-* mvn -P test apigee-config:exportAppKeys -Dskip.clean=true
-
-### Export Apps and run the tests (after skip.clean)
-* mvn -P test process-resources apigee-config:exportAppKeys frontend:npm@integration -Dskip.clean=true -Dapi.testtag=@get-ping
-
-### Just run the tests (after skip.clean) - for test iterations
-* mvn -P test process-resources -Dskip.clean=true frontend:npm@integration -Dapi.testtag=@health
-
-### Skip Creating Apps and Overwrite latest revision
-* mvn -P test install -Dskip.apps=true -Dapigee.config.dir=target/resources/edge -Dapi.testtag=@health
-
-### Just update the API Specs in Drupal
-* mvn -P test process-resources apigee-smartdocs:apidoc -Dapigee.smartdocs.config.options=update
-
-### Just update the Integrated Portal API Specs
-Via process-resources after replacements
-* mvn -P test process-resources apigee-config:specs -Dskip.clean=true
-
-Via the source without replacements
-* mvn -P test -Dapigee.config.options=update apigee-config:specs -Dapigee.config.dir=resources/edge
-
-### Other discrete commands
-* mvn -Ptest validate (runs all validate phases: lint, apigeelint, unit)
-* mvn jshint:lint
-* mvn -P test frontend:npm@apigeelint
-* mvn -P test frontend:npm@unit
-* mvn -P test frontend:npm@integration
-
-
 
 ### Pipeline
 ```
@@ -91,10 +43,27 @@ mvn -P test replacer:replace@replace
 mvn -P test apigee-enterprise:configure
 mvn -P test apigee-config:targetservers
 mvn -P test apigee-config:resourcefiles
+./create_datacollector.sh
 mvn -P test apigee-enterprise:deploy
 mvn -P test apigee-config:apiproducts
+# Basic
+./create_rateplan_basic.sh
+./create_developer_subscription_basic.sh
+# Revshare
+./create_rateplan_revshare.sh
+./create_developer_subscription_revshare.sh
 mvn -P test apigee-config:developers
+./update_developer_monetization_config.sh
+./create_developer_balance.sh
 mvn -P test apigee-config:apps -Dapigee.app.ignoreAPIProducts=true # One set of keys
 mvn -P test apigee-config:exportAppKeys
 mvn -P test frontend:npm@integration
 ```
+
+### Cleanup
+mvn -P "$ENV" -Dskip.integration=true -Dapigee.config.options=delete -Dapigee.options=clean \
+    process-resources \
+    apigee-config:apps \
+    apigee-config:apiproducts \
+    apigee-config:developers \
+    apigee-enterprise:deploy

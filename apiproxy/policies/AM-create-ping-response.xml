@@ -4,8 +4,6 @@
     <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
     <Set>
         <Headers>
-            <!-- this should be set from mint.minting_rate as it varies by band -->
-            <Header name="X-Monetization-Revenue-Share">0.1</Header>
             <Header name="X-Monetization-Multiplier">1</Header>
         </Headers>
         <Payload contentType="application/json">
@@ -40,6 +38,7 @@
         "mint.prepaid_developer_currency":"{mint.prepaid_developer_currency}",
         "mint.prepaid_updated_developer_usage":"{mint.prepaid_updated_developer_usage}",
         "mint.rateplan_end_time_ms":"{mint.rateplan_end_time_ms}",
+        "mint.request_count":"{mint.request_count}",
         "mint.status":"{mint.status}",
         "mint.status_code":"{mint.status_code}",
         "mint.subscription_start_time_ms":"{mint.subscription_start_time_ms}",

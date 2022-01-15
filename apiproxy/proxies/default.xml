@@ -92,6 +92,10 @@
                     <Name>AM-create-ping-response</Name>
                 </Step>
                 <Step>
+                    <!-- <Condition>mint.limitscheck.purchased_product_name == "pingstatus-mint-v1-product-revshare-test"</Condition> -->
+                    <Name>AM-revshare-ping</Name>
+                </Step>
+                <Step>
                     <Name>AM-monetization-charge</Name>
                 </Step>
             </Response>
@@ -117,6 +121,10 @@
                 </Step>
                 <Step>
                     <Name>AM-create-status-response</Name>
+                </Step>
+                <Step>
+                    <!-- <Condition>mint.limitscheck.purchased_product_name == "pingstatus-mint-v1-product-revshare-test"</Condition> -->
+                    <Name>AM-revshare-status</Name>
                 </Step>
                 <Step>
                     <Name>AM-monetization-charge</Name>

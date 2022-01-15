@@ -4,5 +4,11 @@
         "firstName": "CICD Prepaid APIGEE_ENVIRONMENT",
         "lastName": "Developer",
         "userName": "cicd-developer-prepaid-APIGEE_ENVIRONMENT"
+    },
+    {
+        "email": "cicd-developer-postpaid-APIGEE_ENVIRONMENT@google.com",
+        "firstName": "CICD Postpaid APIGEE_ENVIRONMENT",
+        "lastName": "Developer",
+        "userName": "cicd-developer-postpaid-APIGEE_ENVIRONMENT"
     }
 ]

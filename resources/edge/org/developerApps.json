@@ -14,5 +14,21 @@
             "callbackUrl": "NA",
             "scopes": []
         }
+    ],
+    "cicd-developer-postpaid-APIGEE_ENVIRONMENT@google.com": [
+        {
+            "name": "pingstatus-mint-v1-app-postpaid-basic-APIGEE_ENVIRONMENT",
+            "apiProducts": [ "pingstatus-mint-v1-product-basic-APIGEE_ENVIRONMENT" ],
+            "keyExpiresIn": -1,
+            "callbackUrl": "NA",
+            "scopes": []
+        },
+        {
+            "name": "pingstatus-mint-v1-app-postpaid-revshare-APIGEE_ENVIRONMENT",
+            "apiProducts": [ "pingstatus-mint-v1-product-revshare-APIGEE_ENVIRONMENT" ],
+            "keyExpiresIn": -1,
+            "callbackUrl": "NA",
+            "scopes": []
+        }
     ]
 }

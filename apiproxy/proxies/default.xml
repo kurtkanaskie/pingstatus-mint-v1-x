@@ -79,6 +79,7 @@
                 <Step>
                     <Name>ML-check</Name>
                 </Step>
+                <!-- Enforce that this proxy can ONLY be used with API Product that has a Rate Plan -->
                 <Step>
                     <Condition>mint.limitscheck.status_message == "rateplan_not_available"</Condition>
                     <Name>RF-rateplan-not-available</Name>
@@ -92,7 +93,10 @@
                     <Name>AM-create-ping-response</Name>
                 </Step>
                 <Step>
-                    <!-- <Condition>mint.limitscheck.purchased_product_name == "pingstatus-mint-v1-product-revshare-test"</Condition> -->
+                    <!-- HACK: set Revenue Share variable for those types of RatePlans, although RevShare is totally independent of everything -->
+                    <!--
+                    <Condition>mint.limitscheck.purchased_product_name == "pingstatus-mint-v1-product-revshare-test"</Condition>
+                    -->
                     <Name>AM-revshare-ping</Name>
                 </Step>
                 <Step>
@@ -110,6 +114,7 @@
                 <Step>
                     <Name>ML-check</Name>
                 </Step>
+                <!-- Enforce that this proxy can ONLY be used with API Product that has a Rate Plan -->
                 <Step>
                     <Condition>mint.limitscheck.status_message == "rateplan_not_available"</Condition>
                     <Name>RF-rateplan-not-available</Name>
@@ -123,7 +128,10 @@
                     <Name>AM-create-status-response</Name>
                 </Step>
                 <Step>
-                    <!-- <Condition>mint.limitscheck.purchased_product_name == "pingstatus-mint-v1-product-revshare-test"</Condition> -->
+                    <!-- HACK: set Revenue Share variable for those types of RatePlans, although RevShare is totally independent of everything -->
+                    <!--
+                    <Condition>mint.limitscheck.purchased_product_name == "pingstatus-mint-v1-product-revshare-test"</Condition>
+                    -->
                     <Name>AM-revshare-status</Name>
                 </Step>
                 <Step>

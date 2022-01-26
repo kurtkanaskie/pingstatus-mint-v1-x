@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-create-ping-response">
-    <DisplayName>AM-create-ping-response</DisplayName>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-status-response">
     <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
     <Set>
         <Headers>
-            <Header name="X-Monetization-Multiplier">1</Header>
+            <Header name="X-Monetization-Multiplier">2</Header>
         </Headers>
         <Payload contentType="application/json">
 {
     "system.uuid":"{system.uuid}",
+    "client": "{client.host}",
     "organization": "{organization.name}",
     "environment": "{environment.name}",
+    "developerEmail": "{verifyapikey.VA-Header.developer.email}",
+    "developerFirstName": "{verifyapikey.VA-Header.developer.firstName}",
+    "developerLastName": "{verifyapikey.VA-Header.developer.lastName}",
     "application": "{verifyapikey.VA-Header.developer.app.name}",
     "product": "{verifyapikey.VA-Header.apiproduct.name}",
+    "apiproxy": "{apiproxy.name}",
+    "basepath": "{proxy.basepath}",
+    "apiproxyRevision": "{apiproxy.revision}",
+    "path": "{proxy.basepath}{proxy.pathsuffix}",
+    "quota":"{verifyapikey.VA-Header.apiproduct.developer.quota.limit} per {verifyapikey.VA-Header.apiproduct.developer.quota.interval} {verifyapikey.VA-Header.apiproduct.developer.quota.timeunit}",
+    "used":"{ratelimit.QU-monetization-enforce.used.count} of {ratelimit.QU-monetization-enforce.allowed.count} with {ratelimit.QU-monetization-enforce.available.count} available and {ratelimit.QU-monetization-enforce.exceed.count} exceeded",
     "mintVariables":{
         "mint.limitscheck.is_request_blocked":"{mint.limitscheck.is_request_blocked}",
         "mint.limitscheck.is_subscription_found":"{mint.limitscheck.is_subscription_found}",
@@ -45,21 +54,18 @@
         "mint.subscription_end_time_ms":"{mint.subscription_end_time_ms}",
         "mint.tx_success_result":"{mint.tx_success_result}"
     },
-    "developerEmail": "{verifyapikey.VA-Header.developer.email}",
-    "developerFirstName": "{verifyapikey.VA-Header.developer.firstName}",
-    "developerLastName": "{verifyapikey.VA-Header.developer.lastName}",
-    "quota":"{verifyapikey.VA-Header.apiproduct.developer.quota.limit} per {verifyapikey.VA-Header.apiproduct.developer.quota.interval} {verifyapikey.VA-Header.apiproduct.developer.quota.timeunit}",
-    "used":"{ratelimit.QU-monetization-enforce.used.count} of {ratelimit.QU-monetization-enforce.allowed.count} with {ratelimit.QU-monetization-enforce.available.count} available and {ratelimit.QU-monetization-enforce.exceed.count} exceeded",
-    "apiproxy": "{apiproxy.name}",
-    "basepath": "{proxy.basepath}",
-    "apiproxyRevision": "{apiproxy.revision}",
-    "client": "{client.host}",
-    "path": "{proxy.basepath}{proxy.pathsuffix}",
     "time": "{system.time}",
     "proxyLatency": {total_client_time},
     "targetLatency": {total_target_time},
     "latency": {total_request_time},
-    "message":"PONG"
+    "message":"STATUS",
+    "targetResponse": {
+        "headers":{
+            "Content-Type":"{response.header.content-type}",
+            "Content-Length":"{response.header.content-length}"
+        },
+        "content":{response.content}
+    }
 }
 </Payload>
         <StatusCode>200</StatusCode>

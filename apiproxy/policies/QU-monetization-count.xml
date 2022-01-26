@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Quota name="QU-monetization-enforce" type="flexi">
+<Quota name="QU-monetization-count" type="flexi">
     <SharedName>monetization</SharedName>
-    <EnforceOnly>true</EnforceOnly>
+    <CountOnly>true</CountOnly>
     <UseQuotaConfigInAPIProduct stepName="VA-Header">
         <DefaultConfig>
             <Allow>42</Allow>

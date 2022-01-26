@@ -65,7 +65,7 @@
                     <Name>AM-monetization-free</Name>
                 </Step>
                 <Step>
-                    <Name>AM-create-free-response</Name>
+                    <Name>AM-free-response</Name>
                 </Step>
             </Response>
             <Condition>(request.verb = "GET") and (proxy.pathsuffix MatchesPath "/free")</Condition>
@@ -90,17 +90,16 @@
                     <Name>JS-set-time-data</Name>
                 </Step>
                 <Step>
-                    <Name>AM-create-ping-response</Name>
+                    <Name>AM-ping-response</Name>
                 </Step>
                 <Step>
-                    <!-- HACK: set Revenue Share variable for those types of RatePlans, although RevShare is totally independent of everything -->
-                    <!--
-                    <Condition>mint.limitscheck.purchased_product_name == "pingstatus-mint-v1-product-revshare-test"</Condition>
-                    -->
-                    <Name>AM-revshare-ping</Name>
+                    <Name>AM-ping-revshare</Name>
                 </Step>
                 <Step>
                     <Name>AM-monetization-charge</Name>
+                </Step>
+                <Step>
+                    <Name>QU-monetization-count</Name>
                 </Step>
             </Response>
             <Condition>(proxy.pathsuffix MatchesPath "/ping") and (request.verb = "GET")</Condition>
@@ -125,17 +124,16 @@
                     <Name>JS-set-time-data</Name>
                 </Step>
                 <Step>
-                    <Name>AM-create-status-response</Name>
+                    <Name>AM-status-response</Name>
                 </Step>
                 <Step>
-                    <!-- HACK: set Revenue Share variable for those types of RatePlans, although RevShare is totally independent of everything -->
-                    <!--
-                    <Condition>mint.limitscheck.purchased_product_name == "pingstatus-mint-v1-product-revshare-test"</Condition>
-                    -->
-                    <Name>AM-revshare-status</Name>
+                    <Name>AM-status-revshare</Name>
                 </Step>
                 <Step>
                     <Name>AM-monetization-charge</Name>
+                </Step>
+                <Step>
+                    <Name>QU-monetization-count</Name>
                 </Step>
             </Response>
             <Condition>(proxy.pathsuffix MatchesPath "/status") and (request.verb = "GET")</Condition>

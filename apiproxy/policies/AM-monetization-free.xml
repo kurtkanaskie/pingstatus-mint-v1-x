@@ -2,6 +2,10 @@
 <AssignMessage continueOnError="false" enabled="true" name="AM-monetization-free">
     <DisplayName>AM-monetization-free</DisplayName>
     <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignVariable>
+        <Name>request.header.x-monetization-success</Name>
+        <Value>false</Value>
+    </AssignVariable>
     <Set>
         <Headers>
             <Header name="X-Monetization-Success">false</Header>
@@ -12,10 +16,4 @@
             <Header name="X-Monetization-Used">{ratelimit.QU-MonetizationEnforce.used.count} of {ratelimit.QU-MonetizationEnforce.allowed.count} with {ratelimit.QU-MonetizationEnforce.available.count} available and {ratelimit.QU-MonetizationEnforce.exceed.count} exceeded</Header>
         </Headers>
     </Set>
-    <!--
-    <AssignVariable>
-        <Name>mint.limitscheck.is_request_blocked</Name>
-        <Value>true</Value>
-    </AssignVariable>
-    -->
 </AssignMessage>

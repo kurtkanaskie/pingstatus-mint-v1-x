@@ -1,14 +1,39 @@
 openapi: 3.0.3
 info:
   version: 1.0.0
-  title: pingstatus-v1
+  title: pingstatus-mint-v1
   description: |
     Health checks for proxy (ping) and target backend (status).
   contact:
     email: kurtkanaskie@google.com
 servers:
   - url: https://xapi-test.kurtkanaskie.net/pingstatus-mint/v1
+  - url: https://xapi.kurtkanaskie.net/pingstatus-mint/v1
 paths:
+  /free:
+    get:
+      operationId: getPing
+      description: Returns a message indicating the API proxy is operational
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FreeResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+      deprecated: false
   /ping:
     get:
       operationId: getPing
@@ -80,9 +105,17 @@ components:
           example: https://developer.company.com/errors#401.004
           description: Where to find more inforamation
           type: string
-    PingResponse:
+    FreeResponse:
       type: object
       properties:
+        system.uuid:
+          example: 35230571-95cc-4041-ab2b-f0c30d307270
+          description: The ID of the Message Processor
+          type: string
+        client.id:
+          example: 10.41.132.67
+          description: The IP address of the component processing the request
+          type: string
         organization:
           example: kurtkanaskietrainer-trial
           description: The name of the organization
@@ -90,6 +123,18 @@ components:
         environment:
           example: test
           description: The name of the environment
+          type: string
+        developerEmail:
+          example: jane@any.com
+          description: The E-Mail of the developer
+          type: string
+        developerFirstName:
+          example: Jane
+          description: The first name of the developer
+          type: string
+        developerLastName:
+          example: Smith
+          description: The filastrst name of the developer
           type: string
         application:
           example: pingstatus-v1-app-test
@@ -100,20 +145,20 @@ components:
           description: The name of the API product
           type: string
         apiproxy:
-          example: pingstatus-v1
+          example: pingstatus-mint-v1
           description: The name of the API Proxy
           type: string
+        apiproxyRevision:
+          example: 42
+          description: The API proxy revision
+          type: string
         basepath:
-          example: pingstatus-v1
+          example: /pingstatus-mint/v1
           description: The basepath of the the URL for the API Proxy
           type: string
-        pathsuffix:
-          example: pingstatus-v1
-          description: The pathsuffix of the URL for the API Proxy
-          type: string
-        client:
-          example: 216.164.226.250
-          description: The IP address of the client calling the API
+        path:
+          example: /pingstatus-mint/v1/free
+          description: The basepath and path suffix of the URL for the API Proxy
           type: string
         time:
           example: Tue, 20 Mar 2018 14:33:19 UTC
@@ -124,12 +169,20 @@ components:
           description: The total response time to process the API request
           type: integer
         message:
-          example: PONG
+          example: FREE
           description: Message from the endpoint, gaurenteed to be PONG
           type: string
-    StatusResponse:
+    PingResponse:
       type: object
       properties:
+        system.uuid:
+          example: 35230571-95cc-4041-ab2b-f0c30d307270
+          description: The ID of the Message Processor
+          type: string
+        client.id:
+          example: 10.41.132.67
+          description: The IP address of the component processing the request
+          type: string
         organization:
           example: kurtkanaskietrainer-trial
           description: The name of the organization
@@ -137,6 +190,18 @@ components:
         environment:
           example: test
           description: The name of the environment
+          type: string
+        developerEmail:
+          example: jane@any.com
+          description: The E-Mail of the developer
+          type: string
+        developerFirstName:
+          example: Jane
+          description: The first name of the developer
+          type: string
+        developerLastName:
+          example: Smith
+          description: The filastrst name of the developer
           type: string
         application:
           example: pingstatus-v1-app-test
@@ -147,20 +212,28 @@ components:
           description: The name of the API product
           type: string
         apiproxy:
-          example: pingstatus-v1
+          example: pingstatus-mint-v1
           description: The name of the API Proxy
           type: string
+        apiproxyRevision:
+          example: 42
+          description: The API proxy revision
+          type: string
         basepath:
-          example: pingstatus-v1
+          example: /pingstatus-mint/v1
           description: The basepath of the the URL for the API Proxy
           type: string
-        pathsuffix:
-          example: pingstatus-v1
-          description: The pathsuffix of the URL for the API Proxy
+        path:
+          example: /pingstatus-mint/v1/free
+          description: The basepath and path suffix of the URL for the API Proxy
           type: string
-        client:
-          example: 216.164.226.250
-          description: The IP address of the client calling the API
+        quota:
+          example: 500 per 1 day
+          description: The quota associated with the endpoint
+          type: string
+        used:
+          example: 6 of 500 with 494 available and 0 exceeded
+          description: The quota usage details
           type: string
         time:
           example: Tue, 20 Mar 2018 14:33:19 UTC
@@ -168,15 +241,98 @@ components:
           type: string
         proxyLatency:
           example: 42
-          description: The total response time to process the API request
+          description: The proxy latency = request + response
           type: integer
         targetLatency:
-          example: 378
-          description: The total response time to process the API request
+          example: 42
+          description: The target latency = request + response
           type: integer
         latency:
-          example: 420
-          description: The total response time to process the API request
+          example: 42
+          description: The total proxy and target request and response time to process the API request
+          type: integer
+        message:
+          example: PONG
+          description: Message from the endpoint, gaurenteed to be PONG
+          type: string
+    StatusResponse:
+      type: object
+      properties:
+        system.uuid:
+          example: 35230571-95cc-4041-ab2b-f0c30d307270
+          description: The ID of the Message Processor
+          type: string
+        client.id:
+          example: 10.41.132.67
+          description: The IP address of the component processing the request
+          type: string
+        organization:
+          example: kurtkanaskietrainer-trial
+          description: The name of the organization
+          type: string
+        environment:
+          example: test
+          description: The name of the environment
+          type: string
+        developerEmail:
+          example: jane@any.com
+          description: The E-Mail of the developer
+          type: string
+        developerFirstName:
+          example: Jane
+          description: The first name of the developer
+          type: string
+        developerLastName:
+          example: Smith
+          description: The filastrst name of the developer
+          type: string
+        application:
+          example: pingstatus-v1-app-test
+          description: The name of the application
+          type: string
+        product:
+          example: pingstatus-v1-app-test
+          description: The name of the API product
+          type: string
+        apiproxy:
+          example: pingstatus-mint-v1
+          description: The name of the API Proxy
+          type: string
+        basepath:
+          example: /pingstatus-mint/v1
+          description: The basepath of the the URL for the API Proxy
+          type: string
+        path:
+          example: /pingstatus-mint/v1/free
+          description: The basepath and path suffix of the URL for the API Proxy
+          type: string
+        apiproxyRevision:
+          example: 42
+          description: The API proxy revision
+          type: string
+        quota:
+          example: 500 per 1 day
+          description: The quota associated with the endpoint
+          type: string
+        used:
+          example: 6 of 500 with 494 available and 0 exceeded
+          description: The quota usage details
+          type: string
+        time:
+          example: Tue, 20 Mar 2018 14:33:19 UTC
+          description: The time when the request was processed
+          type: string
+        proxyLatency:
+          example: 42
+          description: The proxy latency = request + response
+          type: integer
+        targetLatency:
+          example: 42
+          description: The target latency = request + response
+          type: integer
+        latency:
+          example: 42
+          description: The total proxy and target request and response time to process the API request
           type: integer
         message:
           example: STATUS

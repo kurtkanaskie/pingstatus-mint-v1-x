@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<AssignMessage continueOnError="false" enabled="true" name="AM-revshare-status">
+<AssignMessage continueOnError="false" enabled="true" name="AM-status-revshare">
     <Set>
         <Headers>
             <Header name="X-Monetization-Revenue-Share">0.2</Header>

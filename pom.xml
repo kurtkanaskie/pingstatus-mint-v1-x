@@ -51,6 +51,7 @@
 				<apigee.config.dir>target/resources/edge</apigee.config.dir>
 				<apigee.config.exportDir>target/test/integration</apigee.config.exportDir>
 				<apigee.config.options>update</apigee.config.options>
+				<apigee.app.ignoreAPIProducts>true</apigee.app.ignoreAPIProducts>
 				<api.testtag>@cors,@health,@errorHandling,@wip</api.testtag>
 				<!-- Override on command line or replace with your values -->
 				<apigee.org>apigeex-mint-kurt</apigee.org>
@@ -71,6 +72,7 @@
 				<apigee.config.dir>target/resources/edge</apigee.config.dir>
 				<apigee.config.exportDir>target/test/integration</apigee.config.exportDir>
 				<apigee.config.options>update</apigee.config.options>
+				<apigee.app.ignoreAPIProducts>true</apigee.app.ignoreAPIProducts>
 				<api.testtag>@cors,@health,@errorHandling,@wip</api.testtag>
 				<!-- Override on command line or replace with your values -->
 				<apigee.org>apigeex-mint-kurt</apigee.org>

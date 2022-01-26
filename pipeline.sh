@@ -16,6 +16,7 @@
 
 set -e
 
+# To be tested end-to-end
 echo Pipeline for pingstatus-mint-v1 in project: "$ORG" for environment: "$ENV"
 
 mvn -P "$ENV" clean
@@ -29,9 +30,18 @@ mvn -P "$ENV" replacer:replace@replace
 mvn -P "$ENV" apigee-enterprise:configure
 mvn -P "$ENV" apigee-config:targetservers
 mvn -P "$ENV" apigee-config:resourcefiles
+./create_datacollector.sh
 mvn -P "$ENV" apigee-enterprise:deploy
 mvn -P "$ENV" apigee-config:apiproducts
+# Basic
+./create_rateplan_basic.sh
+./create_developer_subscription_basic.sh
+# Revshare
+./create_rateplan_revshare.sh
+./create_developer_subscription_revshare.sh
 mvn -P "$ENV" apigee-config:developers
-mvn -P "$ENV" apigee-config:apps -Dapigee.app.ignoreAPIProducts=true # One set of keys
+./update_developer_monetization_config.sh
+./create_developer_balance.sh
+mvn -P "$ENV" apigee-config:apps
 mvn -P "$ENV" apigee-config:exportAppKeys
 mvn -P "$ENV" frontend:npm@integration

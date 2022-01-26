@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<AssignMessage continueOnError="false" enabled="true" name="AM-create-free-response">
-    <DisplayName>AM-create-free-response</DisplayName>
+<AssignMessage continueOnError="false" enabled="true" name="AM-free-response">
     <Set>
         <Payload contentType="application/json">
 {
@@ -8,9 +7,14 @@
     "client": "{client.host}",
     "organization": "{organization.name}",
     "environment": "{environment.name}",
+    "developerEmail": "{verifyapikey.VA-Header.developer.email}",
+    "developerFirstName": "{verifyapikey.VA-Header.developer.firstName}",
+    "developerLastName": "{verifyapikey.VA-Header.developer.lastName}",
     "application": "{verifyapikey.VA-Header.developer.app.name}",
     "product": "{verifyapikey.VA-Header.apiproduct.name}",
     "apiproxy": "{apiproxy.name}",
+    "basepath": "{proxy.basepath}",
+    "apiproxyRevision": "{apiproxy.revision}",
     "path": "{proxy.basepath}{proxy.pathsuffix}",
     "time": "{system.time}",
     "latency": {total_request_time},

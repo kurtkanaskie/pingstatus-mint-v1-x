@@ -55,10 +55,13 @@ mvn -P test apigee-config:apiproducts
 mvn -P test apigee-config:developers
 ./update_developer_monetization_config.sh
 ./create_developer_balance.sh
-mvn -P test apigee-config:apps -Dapigee.app.ignoreAPIProducts=true # One set of keys
+mvn -P test apigee-config:apps
 mvn -P test apigee-config:exportAppKeys
 mvn -P test frontend:npm@integration
 ```
+
+```
+mvn -P $ENV resources:copy-resources@copy-resources replacer:replace@replace apigee-config:resourcefiles apigee-config:exportAppKeys frontend:npm@integration
 
 ### Cleanup
 mvn -P "$ENV" -Dskip.integration=true -Dapigee.config.options=delete -Dapigee.options=clean \

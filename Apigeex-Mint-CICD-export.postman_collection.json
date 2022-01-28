@@ -1,0 +1,1503 @@
+{
+	"info": {
+		"_postman_id": "d0706745-034d-42f4-8237-c209ad6a4751",
+		"name": "ApigeeX-Mint-CICD-export",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CI/CD Manage Rate Plans",
+			"item": [
+				{
+					"name": "Create Rate Plan basic",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"200 OK\"] = responseCode.code === 201;",
+									"if( responseCode.code === 201 ) {",
+									"    var json = JSON.parse(responseBody);",
+									"    var rateplanName = json.name;",
+									"    postman.setEnvironmentVariable(\"rateplanName\", rateplanName);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"apiproduct\": \"pingstatus-mint-v1-product-basic-{{ENV}}\",\n    \"displayName\": \"pingstatus-mint-v1-rateplan-basic-{{ENV}}\",\n    \"description\": \"Setup fee of $10, recurring monthly\",\n    \"billingPeriod\": \"MONTHLY\",\n    \"currencyCode\": \"USD\",\n    \"setupFee\": {\n        \"currencyCode\": \"USD\",\n        \"units\": 10\n    },\n    \"fixedRecurringFee\": {\n        \"units\": 5\n    },\n    \"fixedFeeFrequency\": 30,\n    \"consumptionPricingType\": \"BANDED\",\n    \"consumptionPricingRates\": [\n        {\n            \"end\": \"10\",\n            \"fee\": {\n                \"currencyCode\": \"USD\"\n            }\n        },\n        {\n            \"start\": \"11\",\n            \"end\": \"20\",\n            \"fee\": {\n                \"currencyCode\": \"USD\",\n                \"nanos\": 50000000\n            }\n        },\n        {\n            \"start\": \"21\",\n            \"fee\": {\n                \"currencyCode\": \"USD\",\n                \"nanos\": 10000000\n            }\n        }\n    ],\n    \"state\": \"PUBLISHED\",\n    \"startTime\": \"1641509016273\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/apiproducts/pingstatus-mint-v1-product-basic-{{ENV}}/rateplans",
+							"host": [
+								"{{MGMTSVR}}"
+							],
+							"path": [
+								"v1",
+								"organizations",
+								"{{ORG}}",
+								"apiproducts",
+								"pingstatus-mint-v1-product-basic-{{ENV}}",
+								"rateplans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rate Plans basic expanded",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"200 OK\"] = responseCode.code === 201;",
+									"if( responseCode.code === 201 ) {",
+									"    var json = JSON.parse(responseBody);",
+									"    var rateplanName = json.name;",
+									"    postman.setEnvironmentVariable(\"rateplanName\", rateplanName);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/apiproducts/pingstatus-mint-v1-product-basic-{{ENV}}/rateplans?expand=true",
+							"host": [
+								"{{MGMTSVR}}"
+							],
+							"path": [
+								"v1",
+								"organizations",
+								"{{ORG}}",
+								"apiproducts",
+								"pingstatus-mint-v1-product-basic-{{ENV}}",
+								"rateplans"
+							],
+							"query": [
+								{
+									"key": "expand",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Rate Plan revshare",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"200 OK\"] = responseCode.code === 201;",
+									"if( responseCode.code === 201 ) {",
+									"    var json = JSON.parse(responseBody);",
+									"    var rateplanName = json.name;",
+									"    postman.setEnvironmentVariable(\"rateplanName\", rateplanName);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"apiproduct\": \"pingstatus-mint-v1-product-revshare-{{ENV}}\",\n    \"displayName\": \"pingstatus-mint-v1-rateplan-revshare-{{ENV}}\",\n    \"description\": \"Setup fee of $20, recurring $10 monthly\",\n    \"billingPeriod\": \"MONTHLY\",\n    \"currencyCode\": \"USD\",\n    \"setupFee\": {\n        \"currencyCode\": \"USD\",\n        \"units\": 20\n    },\n    \"fixedRecurringFee\": {\n        \"units\": 10\n    },\n    \"fixedFeeFrequency\": 30,\n    \"consumptionPricingType\": \"BANDED\",\n    \"consumptionPricingRates\": [\n        {\n            \"end\": \"10\",\n            \"fee\": {\n                \"currencyCode\": \"USD\"\n            }\n        },\n        {\n            \"start\": \"11\",\n            \"end\": \"100\",\n            \"fee\": {\n                \"currencyCode\": \"USD\",\n                \"nanos\": 100000000\n            }\n        },\n        {\n            \"start\": \"101\",\n            \"fee\": {\n                \"currencyCode\": \"USD\",\n                \"nanos\": 50000000\n            }\n        }\n    ],\n    \"revenueShareType\": \"FIXED\",\n    \"revenueShareRates\": [\n        {\n            \"sharePercentage\": 10\n        }\n    ],\n    \"state\": \"PUBLISHED\",\n    \"startTime\": \"1641509016273\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/apiproducts/pingstatus-mint-v1-product-revshare-{{ENV}}/rateplans",
+							"host": [
+								"{{MGMTSVR}}"
+							],
+							"path": [
+								"v1",
+								"organizations",
+								"{{ORG}}",
+								"apiproducts",
+								"pingstatus-mint-v1-product-revshare-{{ENV}}",
+								"rateplans"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rate Plans revshare expanded",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"200 OK\"] = responseCode.code === 201;",
+									"if( responseCode.code === 201 ) {",
+									"    var json = JSON.parse(responseBody);",
+									"    var rateplanName = json.name;",
+									"    postman.setEnvironmentVariable(\"rateplanName\", rateplanName);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/apiproducts/pingstatus-mint-v1-product-revshare-{{ENV}}/rateplans?expand=true",
+							"host": [
+								"{{MGMTSVR}}"
+							],
+							"path": [
+								"v1",
+								"organizations",
+								"{{ORG}}",
+								"apiproducts",
+								"pingstatus-mint-v1-product-revshare-{{ENV}}",
+								"rateplans"
+							],
+							"query": [
+								{
+									"key": "expand",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rate plan",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/apiproducts/pingstatus-mint-v1-product-{{ENV}}/rateplans/{{rateplanName}}",
+							"host": [
+								"{{MGMTSVR}}"
+							],
+							"path": [
+								"v1",
+								"organizations",
+								"{{ORG}}",
+								"apiproducts",
+								"pingstatus-mint-v1-product-{{ENV}}",
+								"rateplans",
+								"{{rateplanName}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CICD prepaid",
+			"item": [
+				{
+					"name": "Test basic",
+					"item": [
+						{
+							"name": "{{HOST}}/pingstatus-mint/v1/free cicd",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-apikey",
+										"value": "{{pingstatus-mint-cicd-prepaid-basic-apikey}}"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}/pingstatus-mint/v1/free",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"pingstatus-mint",
+										"v1",
+										"free"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "{{HOST}}/pingstatus-mint/v1/ping cicd",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-apikey",
+										"value": "{{pingstatus-mint-cicd-prepaid-basic-apikey}}"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}/pingstatus-mint/v1/ping",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"pingstatus-mint",
+										"v1",
+										"ping"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "{{HOST}}/pingstatus-mint/v1/status cicd",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-apikey",
+										"value": "{{pingstatus-mint-cicd-prepaid-basic-apikey}}"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}/pingstatus-mint/v1/status",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"pingstatus-mint",
+										"v1",
+										"status"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Test revshare",
+					"item": [
+						{
+							"name": "{{HOST}}/pingstatus-mint/v1/free cicd",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-apikey",
+										"value": "{{pingstatus-mint-cicd-prepaid-revshare-apikey}}"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}/pingstatus-mint/v1/free",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"pingstatus-mint",
+										"v1",
+										"free"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "{{HOST}}/pingstatus-mint/v1/ping cicd",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-apikey",
+										"value": "{{pingstatus-mint-cicd-prepaid-revshare-apikey}}"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}/pingstatus-mint/v1/ping",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"pingstatus-mint",
+										"v1",
+										"ping"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "{{HOST}}/pingstatus-mint/v1/status cicd",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-apikey",
+										"value": "{{pingstatus-mint-cicd-prepaid-revshare-apikey}}"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}/pingstatus-mint/v1/status",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"pingstatus-mint",
+										"v1",
+										"status"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "noauth"
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "Manage Prepaid",
+					"item": [
+						{
+							"name": "CI/CD developer monetizationConfig",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/developers/cicd-developer-prepaid-{{ENV}}@google.com/monetizationConfig",
+									"host": [
+										"{{MGMTSVR}}"
+									],
+									"path": [
+										"v1",
+										"organizations",
+										"{{ORG}}",
+										"developers",
+										"cicd-developer-prepaid-{{ENV}}@google.com",
+										"monetizationConfig"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CI/CD monetizationConfig",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"billingType\": \"PREPAID\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/developers/cicd-developer-prepaid-{{ENV}}@google.com/monetizationConfig",
+									"host": [
+										"{{MGMTSVR}}"
+									],
+									"path": [
+										"v1",
+										"organizations",
+										"{{ORG}}",
+										"developers",
+										"cicd-developer-prepaid-{{ENV}}@google.com",
+										"monetizationConfig"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CI/CD balance",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/developers/cicd-developer-prepaid-{{ENV}}@google.com/balance",
+									"host": [
+										"{{MGMTSVR}}"
+									],
+									"path": [
+										"v1",
+										"organizations",
+										"{{ORG}}",
+										"developers",
+										"cicd-developer-prepaid-{{ENV}}@google.com",
+										"balance"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CI/CD balance credit",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"transactionAmount\": {\n     \"currencyCode\": \"USD\",\n     \"units\": \"50\"\n  },\n  \"transactionId\": \"2022-01-25-1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/developers/cicd-developer-prepaid-{{ENV}}@google.com/balance:credit",
+									"host": [
+										"{{MGMTSVR}}"
+									],
+									"path": [
+										"v1",
+										"organizations",
+										"{{ORG}}",
+										"developers",
+										"cicd-developer-prepaid-{{ENV}}@google.com",
+										"balance:credit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CI/CD credit adjust",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"adjustment\": {\n     \"currencyCode\": \"USD\",\n     \"units\": -10\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/developers/cicd-developer-prepaid-{{ENV}}@google.com/balance:adjust",
+									"host": [
+										"{{MGMTSVR}}"
+									],
+									"path": [
+										"v1",
+										"organizations",
+										"{{ORG}}",
+										"developers",
+										"cicd-developer-prepaid-{{ENV}}@google.com",
+										"balance:adjust"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "datacollector",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"dc_system_uuid\",\n  \"description\": \"Message Processor ID\",\n  \"type\": \"STRING\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/datacollectors",
+									"host": [
+										"{{MGMTSVR}}"
+									],
+									"path": [
+										"v1",
+										"organizations",
+										"{{ORG}}",
+										"datacollectors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Rate Plan basic",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"tests[\"200 OK\"] = responseCode.code === 201;",
+											"if( responseCode.code === 201 ) {",
+											"    var json = JSON.parse(responseBody);",
+											"    var rateplanName = json.name;",
+											"    postman.setEnvironmentVariable(\"rateplanName\", rateplanName);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"apiproduct\": \"pingstatus-mint-v1-product-basic-{{ENV}}\",\n    \"displayName\": \"pingstatus-mint-v1-rateplan-basic-{{ENV}}\",\n    \"description\": \"Setup fee of $10, recurring monthly\",\n    \"billingPeriod\": \"MONTHLY\",\n    \"currencyCode\": \"USD\",\n    \"setupFee\": {\n        \"currencyCode\": \"USD\",\n        \"units\": 10\n    },\n    \"fixedRecurringFee\": {\n        \"units\": 5\n    },\n    \"fixedFeeFrequency\": 30,\n    \"consumptionPricingType\": \"BANDED\",\n    \"consumptionPricingRates\": [\n        {\n            \"end\": \"10\",\n            \"fee\": {\n                \"currencyCode\": \"USD\"\n            }\n        },\n        {\n            \"start\": \"11\",\n            \"end\": \"20\",\n            \"fee\": {\n                \"currencyCode\": \"USD\",\n                \"nanos\": 50000000\n            }\n        },\n        {\n            \"start\": \"21\",\n            \"fee\": {\n                \"currencyCode\": \"USD\",\n                \"nanos\": 10000000\n            }\n        }\n    ],\n    \"state\": \"PUBLISHED\",\n    \"startTime\": \"1641509016273\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/apiproducts/pingstatus-mint-v1-product-basic-{{ENV}}/rateplans",
+									"host": [
+										"{{MGMTSVR}}"
+									],
+									"path": [
+										"v1",
+										"organizations",
+										"{{ORG}}",
+										"apiproducts",
+										"pingstatus-mint-v1-product-basic-{{ENV}}",
+										"rateplans"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Purchase Subscription basic",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"tests[\"200 OK\"] = responseCode.code === 201;",
+											"if( responseCode.code === 201 ) {",
+											"    var json = JSON.parse(responseBody);",
+											"    var rateplanName = json.name;",
+											"    postman.setEnvironmentVariable(\"rateplanName\", rateplanName);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"apiproduct\": \"pingstatus-mint-v1-product-basic-{{ENV}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/developers/cicd-developer-prepaid-{{ENV}}@google.com/subscriptions",
+									"host": [
+										"{{MGMTSVR}}"
+									],
+									"path": [
+										"v1",
+										"organizations",
+										"{{ORG}}",
+										"developers",
+										"cicd-developer-prepaid-{{ENV}}@google.com",
+										"subscriptions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Rate Plans basic expanded",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"tests[\"200 OK\"] = responseCode.code === 201;",
+											"if( responseCode.code === 201 ) {",
+											"    var json = JSON.parse(responseBody);",
+											"    var rateplanName = json.name;",
+											"    postman.setEnvironmentVariable(\"rateplanName\", rateplanName);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/apiproducts/pingstatus-mint-v1-product-basic-{{ENV}}/rateplans?expand=true",
+									"host": [
+										"{{MGMTSVR}}"
+									],
+									"path": [
+										"v1",
+										"organizations",
+										"{{ORG}}",
+										"apiproducts",
+										"pingstatus-mint-v1-product-basic-{{ENV}}",
+										"rateplans"
+									],
+									"query": [
+										{
+											"key": "expand",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Rate Plan revshare",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"tests[\"200 OK\"] = responseCode.code === 201;",
+											"if( responseCode.code === 201 ) {",
+											"    var json = JSON.parse(responseBody);",
+											"    var rateplanName = json.name;",
+											"    postman.setEnvironmentVariable(\"rateplanName\", rateplanName);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"apiproduct\": \"pingstatus-mint-v1-product-revshare-{{ENV}}\",\n    \"displayName\": \"pingstatus-mint-v1-rateplan-revshare-{{ENV}}\",\n    \"description\": \"Setup fee of $20, recurring $10 monthly\",\n    \"billingPeriod\": \"MONTHLY\",\n    \"currencyCode\": \"USD\",\n    \"setupFee\": {\n        \"currencyCode\": \"USD\",\n        \"units\": 20\n    },\n    \"fixedRecurringFee\": {\n        \"units\": 10\n    },\n    \"fixedFeeFrequency\": 30,\n    \"consumptionPricingType\": \"BANDED\",\n    \"consumptionPricingRates\": [\n        {\n            \"end\": \"10\",\n            \"fee\": {\n                \"currencyCode\": \"USD\"\n            }\n        },\n        {\n            \"start\": \"11\",\n            \"end\": \"100\",\n            \"fee\": {\n                \"currencyCode\": \"USD\",\n                \"nanos\": 100000000\n            }\n        },\n        {\n            \"start\": \"101\",\n            \"fee\": {\n                \"currencyCode\": \"USD\",\n                \"nanos\": 50000000\n            }\n        }\n    ],\n    \"revenueShareType\": \"FIXED\",\n    \"revenueShareRates\": [\n        {\n            \"sharePercentage\": 10\n        }\n    ],\n    \"state\": \"PUBLISHED\",\n    \"startTime\": \"1641509016273\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/apiproducts/pingstatus-mint-v1-product-revshare-{{ENV}}/rateplans",
+									"host": [
+										"{{MGMTSVR}}"
+									],
+									"path": [
+										"v1",
+										"organizations",
+										"{{ORG}}",
+										"apiproducts",
+										"pingstatus-mint-v1-product-revshare-{{ENV}}",
+										"rateplans"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Purchase Subscription revshare",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"tests[\"200 OK\"] = responseCode.code === 201;",
+											"if( responseCode.code === 201 ) {",
+											"    var json = JSON.parse(responseBody);",
+											"    var rateplanName = json.name;",
+											"    postman.setEnvironmentVariable(\"rateplanName\", rateplanName);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"apiproduct\": \"pingstatus-mint-v1-product-revshare-{{ENV}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/developers/cicd-developer-prepaid-{{ENV}}@google.com/subscriptions",
+									"host": [
+										"{{MGMTSVR}}"
+									],
+									"path": [
+										"v1",
+										"organizations",
+										"{{ORG}}",
+										"developers",
+										"cicd-developer-prepaid-{{ENV}}@google.com",
+										"subscriptions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Rate Plans revshare expanded",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"tests[\"200 OK\"] = responseCode.code === 201;",
+											"if( responseCode.code === 201 ) {",
+											"    var json = JSON.parse(responseBody);",
+											"    var rateplanName = json.name;",
+											"    postman.setEnvironmentVariable(\"rateplanName\", rateplanName);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/apiproducts/pingstatus-mint-v1-product-revshare-{{ENV}}/rateplans?expand=true",
+									"host": [
+										"{{MGMTSVR}}"
+									],
+									"path": [
+										"v1",
+										"organizations",
+										"{{ORG}}",
+										"apiproducts",
+										"pingstatus-mint-v1-product-revshare-{{ENV}}",
+										"rateplans"
+									],
+									"query": [
+										{
+											"key": "expand",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Rate Plan Subscriptions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"tests[\"200 OK\"] = responseCode.code === 201;",
+											"if( responseCode.code === 201 ) {",
+											"    var json = JSON.parse(responseBody);",
+											"    var rateplanName = json.name;",
+											"    postman.setEnvironmentVariable(\"rateplanName\", rateplanName);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/developers/cicd-developer-prepaid-{{ENV}}@google.com/subscriptions",
+									"host": [
+										"{{MGMTSVR}}"
+									],
+									"path": [
+										"v1",
+										"organizations",
+										"{{ORG}}",
+										"developers",
+										"cicd-developer-prepaid-{{ENV}}@google.com",
+										"subscriptions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Rate plan",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/apiproducts/pingstatus-mint-v1-product-{{ENV}}/rateplans/{{rateplanName}}",
+									"host": [
+										"{{MGMTSVR}}"
+									],
+									"path": [
+										"v1",
+										"organizations",
+										"{{ORG}}",
+										"apiproducts",
+										"pingstatus-mint-v1-product-{{ENV}}",
+										"rateplans",
+										"{{rateplanName}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "CICD postpaid",
+			"item": [
+				{
+					"name": "Test basic postpaid",
+					"item": [
+						{
+							"name": "{{HOST}}/pingstatus-mint/v1/free cicd",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-apikey",
+										"value": "{{pingstatus-mint-cicd-postpaid-basic-apikey}}"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}/pingstatus-mint/v1/free",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"pingstatus-mint",
+										"v1",
+										"free"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "{{HOST}}/pingstatus-mint/v1/ping cicd",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-apikey",
+										"value": "{{pingstatus-mint-cicd-postpaid-basic-apikey}}"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}/pingstatus-mint/v1/ping",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"pingstatus-mint",
+										"v1",
+										"ping"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "{{HOST}}/pingstatus-mint/v1/status cicd",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-apikey",
+										"value": "{{pingstatus-mint-cicd-postpaid-basic-apikey}}"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}/pingstatus-mint/v1/status",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"pingstatus-mint",
+										"v1",
+										"status"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Test postpaid revshare",
+					"item": [
+						{
+							"name": "{{HOST}}/pingstatus-mint/v1/free cicd",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-apikey",
+										"value": "{{pingstatus-mint-cicd-postpaid-revshare-apikey}}"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}/pingstatus-mint/v1/free",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"pingstatus-mint",
+										"v1",
+										"free"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "{{HOST}}/pingstatus-mint/v1/ping cicd",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-apikey",
+										"value": "{{pingstatus-mint-cicd-postpaid-revshare-apikey}}"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}/pingstatus-mint/v1/ping",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"pingstatus-mint",
+										"v1",
+										"ping"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "{{HOST}}/pingstatus-mint/v1/status cicd",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-apikey",
+										"value": "{{pingstatus-mint-cicd-postpaid-revshare-apikey}}"
+									}
+								],
+								"url": {
+									"raw": "{{HOST}}/pingstatus-mint/v1/status",
+									"host": [
+										"{{HOST}}"
+									],
+									"path": [
+										"pingstatus-mint",
+										"v1",
+										"status"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage Postpaid",
+					"item": [
+						{
+							"name": "CI/CD developer monetizationConfig",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/developers/cicd-developer-prepaid-{{ENV}}@google.com/monetizationConfig",
+									"host": [
+										"{{MGMTSVR}}"
+									],
+									"path": [
+										"v1",
+										"organizations",
+										"{{ORG}}",
+										"developers",
+										"cicd-developer-prepaid-{{ENV}}@google.com",
+										"monetizationConfig"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Purchase Subscription basic",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"tests[\"200 OK\"] = responseCode.code === 201;",
+											"if( responseCode.code === 201 ) {",
+											"    var json = JSON.parse(responseBody);",
+											"    var rateplanName = json.name;",
+											"    postman.setEnvironmentVariable(\"rateplanName\", rateplanName);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"apiproduct\": \"pingstatus-mint-v1-product-basic-{{ENV}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/developers/cicd-developer-postpaid-{{ENV}}@google.com/subscriptions",
+									"host": [
+										"{{MGMTSVR}}"
+									],
+									"path": [
+										"v1",
+										"organizations",
+										"{{ORG}}",
+										"developers",
+										"cicd-developer-postpaid-{{ENV}}@google.com",
+										"subscriptions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Purchase Subscription revshare",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"tests[\"200 OK\"] = responseCode.code === 201;",
+											"if( responseCode.code === 201 ) {",
+											"    var json = JSON.parse(responseBody);",
+											"    var rateplanName = json.name;",
+											"    postman.setEnvironmentVariable(\"rateplanName\", rateplanName);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"apiproduct\": \"pingstatus-mint-v1-product-revshare-{{ENV}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{MGMTSVR}}/v1/organizations/{{ORG}}/developers/cicd-developer-postpaid-{{ENV}}@google.com/subscriptions",
+									"host": [
+										"{{MGMTSVR}}"
+									],
+									"path": [
+										"v1",
+										"organizations",
+										"{{ORG}}",
+										"developers",
+										"cicd-developer-postpaid-{{ENV}}@google.com",
+										"subscriptions"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{GCPAccessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"/* ",
+					" * Source: https://gist.github.com/dinvlad/425a072c8d23c1895e9d345b67909af0",
+					" * This script auto-generates a Google OAuth token from a Service Account key,",
+					" * and stores that token in accessToken variable in Postman.",
+					" *",
+					" * Prior to invoking it, please paste the contents of the key JSON",
+					" * into serviceAccountKey variable in a Postman environment.",
+					" *",
+					" * Then, paste the script into the \"Pre-request Script\" section",
+					" * of a Postman request or collection.",
+					" *",
+					" * The script will cache and reuse the token until it's within",
+					" * a margin of expiration defined in EXPIRES_MARGIN.",
+					" *",
+					" * Thanks to:",
+					" * https://paw.cloud/docs/examples/google-service-apis",
+					" * https://developers.google.com/identity/protocols/OAuth2ServiceAccount#authorizingrequests",
+					" * https://gist.github.com/madebysid/b57985b0649d3407a7aa9de1bd327990",
+					" * https://github.com/postmanlabs/postman-app-support/issues/1607#issuecomment-401611119",
+					" */",
+					"",
+					"const ENV_SERVICE_ACCOUNT_KEY = 'GCPServiceAccountKey';",
+					"const ENV_JS_RSA_SIGN = 'jsrsasign';",
+					"const ENV_TOKEN_EXPIRES_AT = 'tokenExpiresAt';",
+					"const ENV_ACCESS_TOKEN = 'GCPAccessToken';",
+					"",
+					"const JS_RSA_SIGN_SRC = 'https://kjur.github.io/jsrsasign/jsrsasign-latest-all-min.js';",
+					"const GOOGLE_OAUTH = 'https://www.googleapis.com/oauth2/v4/token';",
+					"",
+					"// add/remove your own scopes as needed",
+					"const SCOPES = [",
+					"    'https://www.googleapis.com/auth/cloud-platform'",
+					"];",
+					"",
+					"const EXPIRES_MARGIN = 300; // seconds before expiration",
+					"",
+					"const getEnv = name =>",
+					"    pm.environment.get(name);",
+					"",
+					"const setEnv = (name, value) =>",
+					"    pm.environment.set(name, value);",
+					"",
+					"const getJWS = callback => {",
+					"    // workaround for compatibility with jsrsasign",
+					"    const navigator = {};",
+					"    const window = {};",
+					"",
+					"    let jsrsasign = getEnv(ENV_JS_RSA_SIGN);",
+					"    if (jsrsasign) {",
+					"        eval(jsrsasign);",
+					"        return callback(null, KJUR.jws.JWS);",
+					"    }",
+					"",
+					"    pm.sendRequest(JS_RSA_SIGN_SRC, (err, res) => {",
+					"        if (err) return callback(err);",
+					"",
+					"        jsrsasign = res.text();",
+					"        setEnv(ENV_JS_RSA_SIGN, jsrsasign);",
+					"        eval(jsrsasign);",
+					"        callback(null, KJUR.jws.JWS);",
+					"    });",
+					"};",
+					"",
+					"const getJwt = ({ client_email, private_key }, iat, callback) => {",
+					"    getJWS((err, JWS) => {",
+					"        if (err) return callback(err);",
+					"",
+					"        const header = {",
+					"            typ: 'JWT',",
+					"            alg: 'RS256',",
+					"        };",
+					"",
+					"        const exp = iat + 3600;",
+					"        const payload = {",
+					"            aud: GOOGLE_OAUTH,",
+					"            iss: client_email,",
+					"            scope: SCOPES.join(' '),",
+					"            iat,",
+					"            exp,",
+					"        };",
+					"",
+					"        const jwt = JWS.sign(null, header, payload, private_key);",
+					"        callback(null, jwt, exp);",
+					"    });",
+					"};",
+					"",
+					"const getToken = (serviceAccountKey, callback) => {",
+					"",
+					"    const now = Math.floor(Date.now() / 1000);",
+					"    if (now + EXPIRES_MARGIN < getEnv(ENV_TOKEN_EXPIRES_AT)) {",
+					"        return callback();",
+					"    }",
+					"",
+					"    console.log( \"KURT: getToken\" );",
+					"    getJwt(serviceAccountKey, now, (err, jwt, exp) => {",
+					"        if (err) return callback(err);",
+					"",
+					"        const req = {",
+					"            url: GOOGLE_OAUTH,",
+					"            method: 'POST',",
+					"            header: {",
+					"                'Content-Type': 'application/x-www-form-urlencoded',",
+					"            },",
+					"            body: {",
+					"              mode: 'urlencoded',",
+					"              urlencoded: [{",
+					"                  key: 'grant_type',",
+					"                  value: 'urn:ietf:params:oauth:grant-type:jwt-bearer',",
+					"              },{",
+					"                  key: 'assertion',",
+					"                  value: jwt,",
+					"              }],",
+					"            },",
+					"        };",
+					"",
+					"        pm.sendRequest(req, (err, res) => {",
+					"            if (err) {",
+					"                console.log( \"KURT ERR: \" + err );",
+					"                return callback(err);",
+					"            }",
+					"",
+					"            const accessToken = res.json().access_token;",
+					"            console.log( \"KURT: \" + accessToken );",
+					"            setEnv(ENV_ACCESS_TOKEN, accessToken);",
+					"            setEnv(ENV_TOKEN_EXPIRES_AT, exp);",
+					"            callback();",
+					"        });",
+					"    });",
+					"};",
+					"",
+					"const getServiceAccountKey = callback => {",
+					"    try {",
+					"        const keyMaterial = getEnv(ENV_SERVICE_ACCOUNT_KEY);",
+					"        const serviceAccountKey = JSON.parse(keyMaterial);",
+					"        callback(null, serviceAccountKey);",
+					"    } catch (err) {",
+					"        // callback(err);",
+					"        return",
+					"    }",
+					"};",
+					"",
+					"getServiceAccountKey((err, serviceAccountKey) => {",
+					"    if (err) throw err;",
+					"",
+					"    getToken(serviceAccountKey, err => {",
+					"        if (err) throw err;",
+					"    });",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

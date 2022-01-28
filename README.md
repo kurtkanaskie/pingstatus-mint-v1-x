@@ -19,54 +19,93 @@ See the [LICENSE](LICENSE) file included.
 
 This code is open source.
 
+## Prerequisites
+[Monetization must be purchased and enabled](https://cloud.google.com/apigee/docs/api-platform/monetization/enable) in the organization.
+
 ## Overview
 
-### Initial build and deploy to pingstatus-mint-v1
+**NOTES:** THIS IS WIP
+
+This hasn't been tested end-to-end in a clean org.
+
+The Monetization resources should be created following the pipeline below.
+
+### Initial build and deploy of pingstatus-mint-v1
+This won't run completely until the Monetization resources have been created,
+but can be used to iterate the proxy design.
 ```
 mvn -P test install
 ```
 
-### Cloud Build all at once (TBD)
-* cloud-build-local --dryrun=true --substitutions=BRANCH_NAME=local,COMMIT_SHA=none .
-* cloud-build-local --dryrun=false --substitutions=BRANCH_NAME=local,COMMIT_SHA=none .
-
-### Pipeline
+### Pipeline (NOT TESTED IN CLEAN ORG - NOR IS IT IDEMPOTENT)
 ```
-mvn -P test clean
-mvn -P test jshint:lint
-mvn -P test frontend:install-node-and-npm@install-node-and-npm
-mvn -P test frontend:npm@npm-install
-mvn -P test frontend:npm@apigeelint
-mvn -P test frontend:npm@unit
-mvn -P test resources:copy-resources@copy-resources
-mvn -P test replacer:replace@replace
-mvn -P test apigee-enterprise:configure
-mvn -P test apigee-config:targetservers
-mvn -P test apigee-config:resourcefiles
+mvn -P "$ENV" clean
+mvn -P "$ENV" jshint:lint
+mvn -P "$ENV" frontend:install-node-and-npm@install-node-and-npm
+mvn -P "$ENV" frontend:npm@npm-install
+mvn -P "$ENV" frontend:npm@apigeelint
+mvn -P "$ENV" frontend:npm@unit
+mvn -P "$ENV" resources:copy-resources@copy-resources
+mvn -P "$ENV" replacer:replace@replace
+mvn -P "$ENV" apigee-enterprise:configure
+mvn -P "$ENV" apigee-config:targetservers
+mvn -P "$ENV" apigee-config:resourcefiles
+
+# System.uuid for analytics not needed for Monetization, used for debugging.
 ./create_datacollector.sh
-mvn -P test apigee-enterprise:deploy
-mvn -P test apigee-config:apiproducts
-# Basic
+
+mvn -P "$ENV" apigee-enterprise:deploy
+mvn -P "$ENV" apigee-config:apiproducts
+
+# Rate Plans
 ./create_rateplan_basic.sh
-./create_developer_subscription_basic.sh
-# Revshare
 ./create_rateplan_revshare.sh
-./create_developer_subscription_revshare.sh
-mvn -P test apigee-config:developers
+
+mvn -P "$ENV" apigee-config:developers
+
+# Prepaid and Postpaid developers
 ./update_developer_monetization_config.sh
+
+# Prepaid developer balance
 ./create_developer_balance.sh
-mvn -P test apigee-config:apps
-mvn -P test apigee-config:exportAppKeys
-mvn -P test frontend:npm@integration
+
+# Subscriptions Prepaid and Postpaid
+./create_developer_subscription_basic.sh
+./create_developer_subscription_revshare.sh
+
+mvn -P "$ENV" apigee-config:apps
+mvn -P "$ENV" apigee-config:exportAppKeys
+mvn -P "$ENV" frontend:npm@integration
 ```
 
+### Re-run integration tests
 ```
 mvn -P $ENV resources:copy-resources@copy-resources replacer:replace@replace apigee-config:resourcefiles apigee-config:exportAppKeys frontend:npm@integration
+```
 
-### Cleanup
+### Cleanup (NOT TESTED)
+```
 mvn -P "$ENV" -Dskip.integration=true -Dapigee.config.options=delete -Dapigee.options=clean \
     process-resources \
     apigee-config:apps \
     apigee-config:apiproducts \
     apigee-config:developers \
     apigee-enterprise:deploy
+
+mvn -P "$ENV" clean
+mvn -P "$ENV" resources:copy-resources@copy-resources
+mvn -P "$ENV" replacer:replace@replace
+mvn -P "$ENV" apigee-config:apps -Dapigee.config.options=delete
+mvn -P "$ENV" apigee-config:developers
+mvn -P "$ENV" apigee-config:apiproducts
+
+# delete the proxy
+mvn -P "$ENV" apigee-enterprise:deploy -Dapigee.options=clean
+
+mvn -P "$ENV" apigee-config:resourcefiles
+mvn -P "$ENV" apigee-config:targetservers
+
+mvn -P "$ENV" clean
+rm -rf targetnode
+```
+

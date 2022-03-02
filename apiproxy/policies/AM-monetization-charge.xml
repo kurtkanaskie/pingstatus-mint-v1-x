@@ -24,7 +24,8 @@
             <Header name="X-Monetization-API-Product">{mint.limitscheck.purchased_product_name}</Header>
             <Header name="X-Monetization-Rate-Plan-Id">{mint.mintng_rate_plan_id}</Header>
             <Header name="X-Monetization-Quota">{verifyapikey.VA-Header.apiproduct.developer.quota.limit} per {verifyapikey.VA-Header.apiproduct.developer.quota.interval} {verifyapikey.VA-Header.apiproduct.developer.quota.timeunit}</Header>
-            <Header name="X-Monetization-Used">{ratelimit.QU-monetization-enforce.used.count} of {ratelimit.QU-monetization-enforce.allowed.count} with {ratelimit.QU-monetization-enforce.available.count} available and {ratelimit.QU-monetization-enforce.exceed.count} exceeded</Header>
+            <Header name="X-Monetization-Enforce">{ratelimit.QU-monetization-enforce.used.count} of {ratelimit.QU-monetization-enforce.allowed.count} with {ratelimit.QU-monetization-enforce.available.count} available and {ratelimit.QU-monetization-enforce.exceed.count} exceeded</Header>
+            <Header name="X-Monetization-Count">{ratelimit.QU-monetization-count.used.count} of {ratelimit.QU-monetization-count.allowed.count} with {ratelimit.QU-monetization-count.available.count} available and {ratelimit.QU-monetization-count.exceed.count} exceeded</Header>
         </Headers>
     </Set>
 </AssignMessage>

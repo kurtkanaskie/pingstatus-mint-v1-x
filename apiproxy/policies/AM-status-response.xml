@@ -21,7 +21,8 @@
     "apiproxyRevision": "{apiproxy.revision}",
     "path": "{proxy.basepath}{proxy.pathsuffix}",
     "quota":"{verifyapikey.VA-Header.apiproduct.developer.quota.limit} per {verifyapikey.VA-Header.apiproduct.developer.quota.interval} {verifyapikey.VA-Header.apiproduct.developer.quota.timeunit}",
-    "used":"{ratelimit.QU-monetization-enforce.used.count} of {ratelimit.QU-monetization-enforce.allowed.count} with {ratelimit.QU-monetization-enforce.available.count} available and {ratelimit.QU-monetization-enforce.exceed.count} exceeded",
+    "enforce":"{ratelimit.QU-monetization-enforce.used.count} of {ratelimit.QU-monetization-enforce.allowed.count} with {ratelimit.QU-monetization-enforce.available.count} available and {ratelimit.QU-monetization-enforce.exceed.count} exceeded",
+    "count":"{ratelimit.QU-monetization-count.used.count} of {ratelimit.QU-monetization-count.allowed.count} with {ratelimit.QU-monetization-count.available.count} available and {ratelimit.QU-monetization-count.exceed.count} exceeded",
     "mintVariables":{
         "mint.limitscheck.is_request_blocked":"{mint.limitscheck.is_request_blocked}",
         "mint.limitscheck.is_subscription_found":"{mint.limitscheck.is_subscription_found}",

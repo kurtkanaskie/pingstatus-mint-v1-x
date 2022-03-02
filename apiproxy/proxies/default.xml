@@ -87,6 +87,9 @@
             </Request>
             <Response>
                 <Step>
+                    <Name>QU-monetization-count</Name>
+                </Step>
+                <Step>
                     <Name>JS-set-time-data</Name>
                 </Step>
                 <Step>
@@ -97,9 +100,6 @@
                 </Step>
                 <Step>
                     <Name>AM-monetization-charge</Name>
-                </Step>
-                <Step>
-                    <Name>QU-monetization-count</Name>
                 </Step>
             </Response>
             <Condition>(proxy.pathsuffix MatchesPath "/ping") and (request.verb = "GET")</Condition>
@@ -121,6 +121,9 @@
             </Request>
             <Response>
                 <Step>
+                    <Name>QU-monetization-count</Name>
+                </Step>
+                <Step>
                     <Name>JS-set-time-data</Name>
                 </Step>
                 <Step>
@@ -131,9 +134,6 @@
                 </Step>
                 <Step>
                     <Name>AM-monetization-charge</Name>
-                </Step>
-                <Step>
-                    <Name>QU-monetization-count</Name>
                 </Step>
             </Response>
             <Condition>(proxy.pathsuffix MatchesPath "/status") and (request.verb = "GET")</Condition>

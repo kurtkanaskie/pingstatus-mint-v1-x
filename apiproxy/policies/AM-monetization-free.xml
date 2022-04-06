@@ -2,13 +2,14 @@
 <AssignMessage continueOnError="false" enabled="true" name="AM-monetization-free">
     <DisplayName>AM-monetization-free</DisplayName>
     <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <!-- Monetization variables -->
     <AssignVariable>
-        <Name>request.header.x-monetization-success</Name>
+        <Name>response.header.x-monetization-success</Name>
         <Value>false</Value>
     </AssignVariable>
     <Set>
         <Headers>
-            <Header name="X-Monetization-Success">false</Header>
+            <!-- Used for feedback  -->
             <Header name="X-Monetization-Developer">{verifyapikey.VA-Header.developer.email}</Header>
             <Header name="X-Monetization-Application">{verifyapikey.VA-Header.developer.app.name}</Header>
             <Header name="X-Monetization-API-Product">{apiproduct.name}</Header>

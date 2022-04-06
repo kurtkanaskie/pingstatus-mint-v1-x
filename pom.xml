@@ -59,6 +59,14 @@
 				<api.northbound.domain>xapi-test.kurtkanaskie.net</api.northbound.domain>
 				<apigee.username>cicd-test-service-account@apigeex-mint-kurt.iam.gserviceaccount.com</apigee.username>
                 <apigee.serviceaccount.file>/Users/kurtkanaskie/work/APIGEEX/SAs/apigeex-mint-kurt-cicd-test-service-account.json</apigee.serviceaccount.file>
+
+                <portal.url>https://developerx.kurtkanaskie.net</portal.url><!-- URL of the developer portal. --> 
+				<portal.username>${pusername}</portal.username><!-- Username for the developer portal. -->
+				<portal.password>${ppassword}</portal.password><!-- Password for the developer portal. -->
+				<portal.format>yaml</portal.format><!-- Format of the OpenAPI specs. -->
+				<portal.api.doc.format>basic_html</portal.api.doc.format><!-- Format in the portal. Values: basic_html, restricted_html, full_html -->
+				<portal.directory>./resources/specs</portal.directory><!-- Directory where OpenAPI specs are accessible. -->
+				<apigee.smartdocs.config.file>./apicatalog-config.json</apigee.smartdocs.config.file>
 			</properties>
 		</profile>
 		<profile>
@@ -211,7 +219,7 @@
 				</executions>
 			</plugin>
 
-			<!-- apigee Configuration prefix: apigee.config -->
+			<!-- apigee Configuration prefix: apigee-config then goal (e.g. apigee-config:apiproducts) -->
 			<plugin>
 				<groupId>com.apigee.edge.config</groupId>
 				<artifactId>apigee-config-maven-plugin</artifactId>
@@ -265,7 +273,7 @@
 							<goal>exportAppKeys</goal>
 						</goals>
 					</execution>
-					<!--
+					<!-- #v1.3.8 only, not in X
 					<execution>
 						<id>create-config-specs</id>
 						<phase>install</phase>                        
@@ -343,12 +351,11 @@
 				</executions>
 			</plugin>
 
-			<!-- apigee Smartdocs API Specs for Drupal-->
-			<!--
+			<!-- apigee Smartdocs API Specs for Drupal prefix: apigee-smartdocs:apidoc -->
 			<plugin>
 				<groupId>com.apigee.smartdocs.config</groupId>
 				<artifactId>apigee-smartdocs-maven-plugin</artifactId>
-				<version>2.0.0</version>
+				<version>2.1.2</version>
 				<configuration>
 					<skip>${skip.smartdocs}</skip>
 				</configuration>
@@ -362,7 +369,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			-->
 
 			<!-- run performance tests -->
 			<!--

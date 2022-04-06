@@ -22,9 +22,13 @@ This code is open source.
 ## Prerequisites
 [Monetization must be purchased and enabled](https://cloud.google.com/apigee/docs/api-platform/monetization/enable) in the organization.
 
+### Set Environment Variables
+ORG=your_org_name
+ENV=your_env_name
+
 ## Overview
 
-**NOTES:** THIS IS WIP
+**NOTE:** THIS IS WIP
 
 This hasn't been tested end-to-end in a clean org.
 
@@ -47,13 +51,13 @@ mvn -P "$ENV" frontend:npm@apigeelint
 mvn -P "$ENV" frontend:npm@unit
 mvn -P "$ENV" resources:copy-resources@copy-resources
 mvn -P "$ENV" replacer:replace@replace
-mvn -P "$ENV" apigee-enterprise:configure
 mvn -P "$ENV" apigee-config:targetservers
 mvn -P "$ENV" apigee-config:resourcefiles
 
 # System.uuid for analytics not needed for Monetization, used for debugging.
 ./create_datacollector.sh
 
+mvn -P "$ENV" apigee-enterprise:configure
 mvn -P "$ENV" apigee-enterprise:deploy
 mvn -P "$ENV" apigee-config:apiproducts
 
@@ -76,6 +80,8 @@ mvn -P "$ENV" apigee-config:developers
 mvn -P "$ENV" apigee-config:apps
 mvn -P "$ENV" apigee-config:exportAppKeys
 mvn -P "$ENV" frontend:npm@integration
+
+mvn -P "$ENV" apigee-smartdocs:apidoc -Dapigee.smartdocs.config.options=create -Dpusername=from-marketplace -Dppassword=from-marketplace
 ```
 
 ### Re-run integration tests

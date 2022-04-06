@@ -8,17 +8,19 @@
         perUnitPriceMultiplier - set in respective flow
         revShareGrossPrice  - set in respective flow, should be taken from mint.mintng_rate
     -->
+    <!-- Monetization variables -->
     <AssignVariable>
-        <Name>request.header.x-monetization-currency</Name>
+        <Name>response.header.x-monetization-currency</Name>
         <Ref>mint.limitscheck.prepaid_developer_currency</Ref>
         <Value>USD</Value>
     </AssignVariable>
     <AssignVariable>
-        <Name>request.header.x-monetization-success</Name>
+        <Name>response.header.x-monetization-success</Name>
         <Value>true</Value>
     </AssignVariable>
     <Set>
         <Headers>
+            <!-- Used for feedback  -->
             <Header name="X-Monetization-Developer">{verifyapikey.VA-Header.developer.email}</Header>
             <Header name="X-Monetization-Application">{verifyapikey.VA-Header.developer.app.name}</Header>
             <Header name="X-Monetization-API-Product">{mint.limitscheck.purchased_product_name}</Header>

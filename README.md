@@ -1,12 +1,13 @@
-# Ping and Status API with Monetization
+# Free, Ping and Status API with Monetization
 
-This proxy demonstrates a simple design to demonstrate a full CI/CD lifecycle.
-It uses the following health check or monitoring endpoints
+This simple proxy demonstrates the use of Monetization in Apigee X.
+It shows how to control which operations are monetized and how to use the rate multiplier. It also shows how to use revenue share.\
+It has three operations.
 * GET /free - response that is not monetized
-* GET /ping - response indicates that the proxy is operational
-* GET /status - response indicates the the backend is operational
+* GET /ping - response indicates that the proxy is operational (single charge)
+* GET /status - response indicates the the backend is operational (double charge)
 
-These endpoints can then be used by API Monitorying with Edge to send notifications when something is wrong.
+It creates demo resources for developers (prepaid, postpaid), apps, API products and rate plans.
 
 ## Disclaimer
 
@@ -22,50 +23,43 @@ This code is open source.
 ## Prerequisites
 [Monetization must be purchased and enabled](https://cloud.google.com/apigee/docs/api-platform/monetization/enable) in the organization.
 
-### Set Environment Variables
+Set Environment Variables
+```
 ORG=your_org_name
 ENV=your_env_name
-
-## Overview
-
-**NOTE:** THIS IS WIP
-
-This hasn't been tested end-to-end in a clean org.
-
-The Monetization resources should be created following the pipeline below.
-
-### Initial build and deploy of pingstatus-mint-v1
-This won't run completely until the Monetization resources have been created,
-but can be used to iterate the proxy design.
-```
-mvn -P test install
 ```
 
-### Pipeline (NOT TESTED IN CLEAN ORG - NOR IS IT IDEMPOTENT)
+## Initial build and deployment
+All at once
 ```
-mvn -P "$ENV" clean
-mvn -P "$ENV" jshint:lint
-mvn -P "$ENV" frontend:install-node-and-npm@install-node-and-npm
-mvn -P "$ENV" frontend:npm@npm-install
-mvn -P "$ENV" frontend:npm@apigeelint
-mvn -P "$ENV" frontend:npm@unit
-mvn -P "$ENV" resources:copy-resources@copy-resources
-mvn -P "$ENV" replacer:replace@replace
-mvn -P "$ENV" apigee-config:targetservers
-mvn -P "$ENV" apigee-config:resourcefiles
+./pipeline.sh
+```
+
+### Individual Pipeline Steps
+```
+mvn -P test clean
+mvn -P test jshint:lint
+mvn -P test frontend:install-node-and-npm@install-node-and-npm
+mvn -P test frontend:npm@npm-install
+mvn -P test frontend:npm@apigeelint
+mvn -P test frontend:npm@unit
+mvn -P test resources:copy-resources@copy-resources
+mvn -P test replacer:replace@replace
+mvn -P test apigee-config:targetservers
+mvn -P test apigee-config:resourcefiles
 
 # System.uuid for analytics not needed for Monetization, used for debugging.
 ./create_datacollector.sh
 
-mvn -P "$ENV" apigee-enterprise:configure
-mvn -P "$ENV" apigee-enterprise:deploy
-mvn -P "$ENV" apigee-config:apiproducts
+mvn -P test apigee-enterprise:configure
+mvn -P test apigee-enterprise:deploy
+mvn -P test apigee-config:apiproducts
 
 # Rate Plans
 ./create_rateplan_basic.sh
 ./create_rateplan_revshare.sh
 
-mvn -P "$ENV" apigee-config:developers
+mvn -P test apigee-config:developers
 
 # Prepaid and Postpaid developers
 ./update_developer_monetization_config.sh
@@ -77,41 +71,45 @@ mvn -P "$ENV" apigee-config:developers
 ./create_developer_subscription_basic.sh
 ./create_developer_subscription_revshare.sh
 
-mvn -P "$ENV" apigee-config:apps
-mvn -P "$ENV" apigee-config:exportAppKeys
-mvn -P "$ENV" frontend:npm@integration
-
-mvn -P "$ENV" apigee-smartdocs:apidoc -Dapigee.smartdocs.config.options=create -Dpusername=from-marketplace -Dppassword=from-marketplace
+mvn -P test apigee-config:apps
+mvn -P test apigee-config:exportAppKeys
+mvn -P test frontend:npm@integration
 ```
 
 ### Re-run integration tests
 ```
-mvn -P $ENV resources:copy-resources@copy-resources replacer:replace@replace apigee-config:resourcefiles apigee-config:exportAppKeys frontend:npm@integration
+mvn -P test resources:copy-resources@copy-resources replacer:replace@replace apigee-config:resourcefiles apigee-config:exportAppKeys frontend:npm@integration
 ```
 
 ### Cleanup (NOT TESTED)
 ```
-mvn -P "$ENV" -Dskip.integration=true -Dapigee.config.options=delete -Dapigee.options=clean \
+mvn -P test -Dskip.integration=true -Dapigee.config.options=delete -Dapigee.options=clean \
     process-resources \
     apigee-config:apps \
     apigee-config:apiproducts \
     apigee-config:developers \
     apigee-enterprise:deploy
 
-mvn -P "$ENV" clean
-mvn -P "$ENV" resources:copy-resources@copy-resources
-mvn -P "$ENV" replacer:replace@replace
-mvn -P "$ENV" apigee-config:apps -Dapigee.config.options=delete
-mvn -P "$ENV" apigee-config:developers
-mvn -P "$ENV" apigee-config:apiproducts
+mvn -P test clean
+mvn -P test resources:copy-resources@copy-resources
+mvn -P test replacer:replace@replace
+mvn -P test apigee-config:apps -Dapigee.config.options=delete
+mvn -P test apigee-config:developers -Dapigee.config.options=delete
+mvn -P test apigee-config:apiproducts -Dapigee.config.options=delete
 
 # delete the proxy
-mvn -P "$ENV" apigee-enterprise:deploy -Dapigee.options=clean
+mvn -P test apigee-enterprise:deploy -Dapigee.options=clean
 
-mvn -P "$ENV" apigee-config:resourcefiles
-mvn -P "$ENV" apigee-config:targetservers
+mvn -P test apigee-config:resourcefiles -Dapigee.config.options=delete
+mvn -P test apigee-config:targetservers -Dapigee.config.options=delete
 
-mvn -P "$ENV" clean
+mvn -P test clean
 rm -rf targetnode
 ```
-
+## TODO
+1. Generate load and show analytics
+2. Install Spec to drupal portal
+```
+mvn -P test" apigee-smartdocs:apidoc -Dapigee.smartdocs.config.options=create -Dpusername=from-marketplace -Dppassword=from-marketplace
+```
+3. Test cleanup

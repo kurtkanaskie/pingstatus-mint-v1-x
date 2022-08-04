@@ -7,7 +7,7 @@ info:
   contact:
     email: kurtkanaskie@google.com
 servers:
-  - url: https://xapi.kurtkanaskie.net/pingstatus-mint/v1
+  - url: https://xapi-test.kurtkanaskie.net/pingstatus-mint/v1
 paths:
   /free:
     get:

@@ -66,6 +66,7 @@
 				<portal.format>yaml</portal.format><!-- Format of the OpenAPI specs. -->
 				<portal.api.doc.format>basic_html</portal.api.doc.format><!-- Format in the portal. Values: basic_html, restricted_html, full_html -->
 				<portal.directory>./resources/specs</portal.directory><!-- Directory where OpenAPI specs are accessible. -->
+				<apigee.smartdocs.config.options>update</apigee.smartdocs.config.options>
 				<apigee.smartdocs.config.file>./apicatalog-config.json</apigee.smartdocs.config.file>
 			</properties>
 		</profile>
@@ -87,6 +88,7 @@
 				<apigee.env>prod</apigee.env>
 				<api.northbound.domain>xapi.kurtkanaskie.net</api.northbound.domain>
 				<apigee.username>cicd-prod-service-account@apigeex-mint-kurt.iam.gserviceaccount.com</apigee.username>
+				<apigee.smartdocs.config.options>update</apigee.smartdocs.config.options>
                 <apigee.serviceaccount.file>/Users/kurtkanaskie/work/APIGEEX/SAs/apigeex-mint-kurt-cicd-prod-service-account.json</apigee.serviceaccount.file>
 			</properties>
 		</profile>		

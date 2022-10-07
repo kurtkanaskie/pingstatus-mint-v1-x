@@ -8,13 +8,13 @@
   "license": "SEE LICENSE IN LICENSE",
   "scripts": {
     "npm-versions": "npm -v && node -v",
-    "apigeelint": "node ./node_modules/apigeelint/cli.js -s ./apiproxy --profile apigeex -f table -e BN005,PO023",
+    "apigeelint": "node ./node_modules/apigeelint/cli.js -s ./apiproxy --profile apigeex -f table -e PO023",
     "unit": "node ./node_modules/mocha/bin/mocha test/unit",
     "integration": "node ./node_modules/cucumber/bin/cucumber.js target/test/integration/features"
   },
   "devDependencies": {
     "apickli": "^1.7.0",
-    "apigeelint": "^2.15.0",
+    "apigeelint": "^2.x",
     "bluebird": "^3.3.5",
     "chai": "^3",
     "chai-fuzzy": "^1",

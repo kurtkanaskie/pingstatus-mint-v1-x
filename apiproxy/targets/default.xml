@@ -37,6 +37,6 @@
         <LoadBalancer>
             <Server name="pingstatus-mint-v1"/>
         </LoadBalancer>
-        <Path>{private.flow.target.basepath}/{flow.target.pathsuffix}</Path>
+        <Path>{flow_target_basepath}/{flow_target_pathsuffix}</Path>
     </HTTPTargetConnection>
 </TargetEndpoint>

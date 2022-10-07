@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <AssignMessage continueOnError="false" enabled="true" name="AM-free-response">
+    <!-- This is required otherwise "yyyy-MM-dd,system.timestamp" is reported as unresolved variable -->
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignVariable>
+        <!-- Can't use ':' in literal format -->
+        <Name>format_time</Name>
+        <Value>HH:mm:ss</Value>
+    </AssignVariable>
     <Set>
         <Payload contentType="application/json">
 {
@@ -16,8 +23,8 @@
     "basepath": "{proxy.basepath}",
     "apiproxyRevision": "{apiproxy.revision}",
     "path": "{proxy.basepath}{proxy.pathsuffix}",
-    "time": "{system.time}",
-    "latency": {total_request_time},
+    "time":"{timeFormatMs(yyyy-MM-dd,system.timestamp)}T{timeFormatMs(format_time,system.timestamp)}Z",
+    "latency":{total_request_time},
     "message":"FREE"
 }
 </Payload>

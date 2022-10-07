@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <AssignMessage async="false" continueOnError="false" enabled="true" name="AM-ping-response">
     <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignVariable>
+        <!-- Can't use ':' in literal format -->
+        <Name>format_time</Name>
+        <Value>HH:mm:ss</Value>
+    </AssignVariable>
     <Set>
         <Headers>
             <Header name="X-Monetization-Multiplier">1</Header>
@@ -23,6 +28,12 @@
     "quota":"{verifyapikey.VA-Header.apiproduct.developer.quota.limit} per {verifyapikey.VA-Header.apiproduct.developer.quota.interval} {verifyapikey.VA-Header.apiproduct.developer.quota.timeunit}",
     "enforce":"{ratelimit.QU-monetization-enforce.used.count} of {ratelimit.QU-monetization-enforce.allowed.count} with {ratelimit.QU-monetization-enforce.available.count} available and {ratelimit.QU-monetization-enforce.exceed.count} exceeded",
     "count":"{ratelimit.QU-monetization-count.used.count} of {ratelimit.QU-monetization-count.allowed.count} with {ratelimit.QU-monetization-count.available.count} available and {ratelimit.QU-monetization-count.exceed.count} exceeded",
+    "resetsTime":"{timeFormatMs(yyyy-MM-dd,ratelimit.QU-monetization-enforce.expiry.time)}T{timeFormatMs(format_time,ratelimit.QU-monetization-enforce.expiry.time)}Z",
+    "time":"{timeFormatMs(yyyy-MM-dd,system.timestamp)}T{timeFormatMs(format_time,system.timestamp)}Z",
+    "proxyLatency":{total_client_time},
+    "targetLatency":{total_target_time},
+    "latency":{total_request_time},
+    "message":"PONG",
     "mintVariables":{
         "mint.limitscheck.is_request_blocked":"{mint.limitscheck.is_request_blocked}",
         "mint.limitscheck.is_subscription_found":"{mint.limitscheck.is_subscription_found}",
@@ -54,12 +65,7 @@
         "mint.subscription_start_time_ms":"{mint.subscription_start_time_ms}",
         "mint.subscription_end_time_ms":"{mint.subscription_end_time_ms}",
         "mint.tx_success_result":"{mint.tx_success_result}"
-    },
-    "time": "{system.time}",
-    "proxyLatency": {total_client_time},
-    "targetLatency": {total_target_time},
-    "latency": {total_request_time},
-    "message":"PONG"
+    }
 }
 </Payload>
         <StatusCode>200</StatusCode>

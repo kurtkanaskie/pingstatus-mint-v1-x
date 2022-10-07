@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<MonetizationLimitsCheck continueOnError="false" enabled="true" name="ML-check">
-    <DisplayName>ML-check</DisplayName>
+<MonetizationLimitsCheck continueOnError="false" enabled="true" name="MC-rate-plan">
     <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
     <FaultResponse>
         <Set>

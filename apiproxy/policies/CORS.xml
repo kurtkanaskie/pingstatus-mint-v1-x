@@ -6,7 +6,7 @@
     <AllowHeaders>{substring(request.header.Access-Control-Request-Headers.values,1,-1)}</AllowHeaders>
     <ExposeHeaders>*</ExposeHeaders>
     <MaxAge>60</MaxAge>
-    <AllowCredentials>false</AllowCredentials>
+    <AllowCredentials>true</AllowCredentials>
     <GeneratePreflightResponse>true</GeneratePreflightResponse>
     <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
 </CORS>

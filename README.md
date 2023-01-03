@@ -81,6 +81,20 @@ mvn -P test frontend:npm@integration
 mvn -P test resources:copy-resources@copy-resources replacer:replace@replace apigee-config:resourcefiles apigee-config:exportAppKeys frontend:npm@integration
 ```
 
+## Drupal
+Enable modules JSON:API and HTTP Basic Authentication.
+
+Add taxonomy elements: /admin/structure/taxonomy
+
+The tool processes all files with `.yaml` or `.json` in the `portal.directory` as Open API Specifications. Putting other files with those suffices will cause errors.
+
+Use username not email for admin, e.g. maintenance
+
+### Just update the API Specs in Drupal
+```
+mvn -P test clean resources:copy-resources replacer:replace apigee-smartdocs:apidoc
+```
+
 ### Cleanup (NOT TESTED)
 ```
 mvn -P test -Dskip.integration=true -Dapigee.config.options=delete -Dapigee.options=clean \

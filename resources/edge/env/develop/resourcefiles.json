@@ -1,0 +1,7 @@
+[
+	{
+	    "name": "pingstatus-mint-v1",
+	    "type": "properties",
+	    "file": "./resources/edge/env/develop/resourceFiles/properties/pingstatus-mint-v1.properties"
+	} 
+]

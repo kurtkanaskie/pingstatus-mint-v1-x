@@ -2,8 +2,8 @@ openapi: 3.0.3
 info:
   version: 1.0.0
   title: pingstatus-mint-v1
-  description: |
-    Health checks for proxy (ping) and target backend (status).
+  description:
+    Health checks for proxy (free, ping$) and target backend (status$$).
   contact:
     email: kurtkanaskie@google.com
 servers:
@@ -11,8 +11,8 @@ servers:
 paths:
   /free:
     get:
-      operationId: getPing
-      description: Returns a message indicating the API proxy is operational
+      operationId: getFree
+      description: Returns a free message indicating the API proxy is operational
       responses:
         "200":
           description: OK

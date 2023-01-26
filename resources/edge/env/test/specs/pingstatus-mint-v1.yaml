@@ -3,7 +3,7 @@ info:
   version: 1.0.0
   title: pingstatus-mint-v1-test
   description:
-    Health checks for proxy (free, ping$) and target backend (status$$).
+    Health checks for proxy (free, $ping) and target backend ($$status).
   contact:
     email: kurtkanaskie@google.com
 servers:
@@ -12,7 +12,7 @@ paths:
   /free:
     get:
       operationId: getFree
-      description: Returns a free message indicating the API proxy is operational
+      description: Returns a free message indicating the API proxy is operational.
       responses:
         "200":
           description: OK
@@ -36,7 +36,7 @@ paths:
   /ping:
     get:
       operationId: getPing
-      description: Returns a message indicating the API proxy is operational
+      description: Returns a message indicating the API proxy is operational.
       responses:
         "200":
           description: OK
@@ -60,7 +60,7 @@ paths:
   /status:
     get:
       operationId: getStatus
-      description: Returns a message indicating the API proxy and back end is operational
+      description: Returns a message indicating the API proxy and back end is operational.
       responses:
         "200":
           description: OK

@@ -33,7 +33,7 @@ mvn -P "$ENV" apigee-config:targetservers
 mvn -P "$ENV" apigee-config:resourcefiles
 
 # System.uuid for analytics not needed for Monetization, used for debugging.
-./create_datacollector.sh
+# ./create_datacollector.sh
 
 mvn -P "$ENV" apigee-enterprise:deploy
 mvn -P "$ENV" apigee-config:apiproducts

@@ -2,7 +2,7 @@
 <AssignMessage continueOnError="false" enabled="true" name="AM-ping-revshare">
     <Set>
         <Headers>
-            <Header name="X-Monetization-Revenue-Share">0.1</Header>
+            <Header name="X-Monetization-Revenue-Share">1.0</Header>
         </Headers>
     </Set>
 </AssignMessage>

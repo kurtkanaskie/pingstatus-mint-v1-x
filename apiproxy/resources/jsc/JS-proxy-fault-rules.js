@@ -101,11 +101,10 @@ switch(faultName) {
     
     case "RaiseFault":
         if ( context.getVariable("raisefault.RF-rateplan-not-available.failed") === true ) {
-            responseCode = "402";
-            reasonPhrase = "Payment Required";
-            code = "402.002";
-            var faultObj = JSON.parse(context.getVariable('message.content'));
-            description = faultObj.error;
+            responseCode = "500";
+            reasonPhrase = "Internal Server Error";
+            code = "500.004";
+            description = "API Product is misconfigured: " + context.getVariable("verifyapikey.VA-Header.apiproduct.name");
         } else if ( context.getVariable("raisefault.RF-invalid-client-cn.failed") === true ) {
             responseCode = "401";
             reasonPhrase = "Unauthorized";

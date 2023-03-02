@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <RaiseFault async="false" continueOnError="false" enabled="true" name="RF-path-suffix-not-found">
     <DisplayName>RF-path-suffix-not-found</DisplayName>
+    <!-- Should never get here since API Product explicitly lists operations, but just in case. -->
     <FaultResponse>
         <Set>
             <Headers/>

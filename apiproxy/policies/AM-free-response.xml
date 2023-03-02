@@ -20,10 +20,9 @@
     "application": "{verifyapikey.VA-Header.developer.app.name}",
     "product": "{verifyapikey.VA-Header.apiproduct.name}",
     "apiproxy": "{apiproxy.name}",
-    "basepath": "{proxy.basepath}",
     "apiproxyRevision": "{apiproxy.revision}",
     "path": "{proxy.basepath}{proxy.pathsuffix}",
-    "time":"{timeFormatMs(yyyy-MM-dd,system.timestamp)}T{timeFormatMs(format_time,system.timestamp)}Z",
+    "datetimeISO":"{timeFormatMs(yyyy-MM-dd,system.timestamp)}T{timeFormatMs(format_time,system.timestamp)}Z",
     "latency":{total_request_time},
     "message":"FREE"
 }

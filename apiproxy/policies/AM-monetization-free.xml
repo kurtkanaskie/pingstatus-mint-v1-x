@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <AssignMessage continueOnError="false" enabled="true" name="AM-monetization-free">
-    <DisplayName>AM-monetization-free</DisplayName>
     <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
     <!-- Monetization variables -->
     <AssignVariable>
-        <Name>response.header.x-monetization-success</Name>
+        <Name>response.header.X-Monetization-Success</Name>
         <Value>false</Value>
     </AssignVariable>
     <Set>

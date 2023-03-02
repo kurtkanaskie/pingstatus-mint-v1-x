@@ -14,7 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# NOT TESTED END TO END
+# usage: ORG=apigeex-mint-kurt ENV=dev ./pipeline.sh
+# NOTE: This is not idempotent, scripts just try to create.
+# TODO: convert to use apigeecli
 
 set -e
 
@@ -33,7 +35,7 @@ mvn -P "$ENV" apigee-config:targetservers
 mvn -P "$ENV" apigee-config:resourcefiles
 
 # System.uuid for analytics not needed for Monetization, used for debugging.
-# ./create_datacollector.sh
+./create_datacollector.sh
 
 mvn -P "$ENV" apigee-enterprise:deploy
 mvn -P "$ENV" apigee-config:apiproducts

@@ -23,11 +23,27 @@ This code is open source.
 ## Prerequisites
 [Monetization must be purchased and enabled](https://cloud.google.com/apigee/docs/api-platform/monetization/enable) in the organization.
 
-Set Environment Variables
+Set your environment variables in `set_env_variales.sh` and `source set_env_variales.sh`:
 ```
-ORG=your_org_name
-ENV=your_env_name
+export ORG=your_org_name
+export ENV=your_env_name
+export API=your.northbound.hostname
+export SA_USER=cicd-test-service-account@${ORG}.iam.gserviceaccount.com
+export SA_CREDS=/path/to/your/sa/keyfile.json
+export PORTAL_URL=admin_username
+export PORTAL_USERNAME=admin_username
+export PORTAL_PASSWORD=admin_password
+export ARGS="-Dapigee.org=$ORG \
+    -Dapigee.env=$ENV \
+    -Dapi.northbound.domain=$API \
+    -Dapigee.username=$SA_USER \
+    -Dapigee.serviceaccount.file=$SA_CREDS \
+    -Dportal.url=$DRUPAL_PORTAL_URL \
+    -Dportal.username=$PORTAL_USERNAME \
+    -Dportal.password=$PORTAL_PASSWORD"
 ```
+
+Or update each pom.xml profile to reflect your specifics (e.g. org, env, hostname, SA credentials).
 
 ## Initial build and deployment
 All at once
@@ -37,29 +53,29 @@ All at once
 
 ### Individual Pipeline Steps
 ```
-mvn -P test clean
-mvn -P test jshint:lint
-mvn -P test frontend:install-node-and-npm@install-node-and-npm
-mvn -P test frontend:npm@npm-install
-mvn -P test frontend:npm@apigeelint
-mvn -P test frontend:npm@unit
-mvn -P test resources:copy-resources@copy-resources
-mvn -P test replacer:replace@replace
-mvn -P test apigee-config:targetservers
-mvn -P test apigee-config:resourcefiles
+mvn -P ${ENV} ${ARGS} clean
+mvn -P ${ENV} ${ARGS} jshint:lint
+mvn -P ${ENV} ${ARGS} frontend:install-node-and-npm@install-node-and-npm
+mvn -P ${ENV} ${ARGS} frontend:npm@npm-install
+mvn -P ${ENV} ${ARGS} frontend:npm@apigeelint
+mvn -P ${ENV} ${ARGS} frontend:npm@unit
+mvn -P ${ENV} ${ARGS} resources:copy-resources@copy-resources
+mvn -P ${ENV} ${ARGS} replacer:replace@replace
+mvn -P ${ENV} ${ARGS} apigee-config:targetservers
+mvn -P ${ENV} ${ARGS} apigee-config:resourcefiles
 
 # System.uuid for analytics not needed for Monetization, used for debugging.
 ./create_datacollector.sh
 
-mvn -P test apigee-enterprise:configure
-mvn -P test apigee-enterprise:deploy
-mvn -P test apigee-config:apiproducts
+mvn -P ${ENV} ${ARGS} apigee-enterprise:configure
+mvn -P ${ENV} ${ARGS} apigee-enterprise:deploy
+mvn -P ${ENV} ${ARGS} apigee-config:apiproducts
 
 # Rate Plans
 ./create_rateplan_basic.sh
 ./create_rateplan_revshare.sh
 
-mvn -P test apigee-config:developers
+mvn -P ${ENV} ${ARGS} apigee-config:developers
 
 # Prepaid and Postpaid developers
 ./update_developer_monetization_config.sh
@@ -71,14 +87,14 @@ mvn -P test apigee-config:developers
 ./create_developer_subscription_basic.sh
 ./create_developer_subscription_revshare.sh
 
-mvn -P test apigee-config:apps
-mvn -P test apigee-config:exportAppKeys
-mvn -P test frontend:npm@integration
+mvn -P ${ENV} ${ARGS} apigee-config:apps
+mvn -P ${ENV} ${ARGS} apigee-config:exportAppKeys
+mvn -P ${ENV} ${ARGS} frontend:npm@integration
 ```
 
 ### Re-run integration tests
 ```
-mvn -P test resources:copy-resources@copy-resources replacer:replace@replace apigee-config:resourcefiles apigee-config:exportAppKeys frontend:npm@integration
+mvn -P ${ENV} ${ARGS} resources:copy-resources@copy-resources replacer:replace@replace apigee-config:resourcefiles apigee-config:exportAppKeys frontend:npm@integration
 ```
 
 ## Drupal
@@ -92,32 +108,32 @@ Use username not email for admin, e.g. maintenance
 
 ### Just update the API Specs in Drupal
 ```
-mvn -P test clean resources:copy-resources replacer:replace apigee-smartdocs:apidoc
+mvn -P ${ENV} ${ARGS} clean resources:copy-resources replacer:replace apigee-smartdocs:apidoc
 ```
 
 ### Cleanup (NOT TESTED)
 ```
-mvn -P test -Dskip.integration=true -Dapigee.config.options=delete -Dapigee.options=clean \
+mvn -P ${ENV} ${ARGS} -Dskip.integration=true -Dapigee.config.options=delete -Dapigee.options=clean \
     process-resources \
     apigee-config:apps \
     apigee-config:apiproducts \
     apigee-config:developers \
     apigee-enterprise:deploy
 
-mvn -P test clean
-mvn -P test resources:copy-resources@copy-resources
-mvn -P test replacer:replace@replace
-mvn -P test apigee-config:apps -Dapigee.config.options=delete
-mvn -P test apigee-config:developers -Dapigee.config.options=delete
-mvn -P test apigee-config:apiproducts -Dapigee.config.options=delete
+mvn -P ${ENV} ${ARGS} clean
+mvn -P ${ENV} ${ARGS} resources:copy-resources@copy-resources
+mvn -P ${ENV} ${ARGS} replacer:replace@replace
+mvn -P ${ENV} ${ARGS} apigee-config:apps -Dapigee.config.options=delete
+mvn -P ${ENV} ${ARGS} apigee-config:developers -Dapigee.config.options=delete
+mvn -P ${ENV} ${ARGS} apigee-config:apiproducts -Dapigee.config.options=delete
 
 # delete the proxy
-mvn -P test apigee-enterprise:deploy -Dapigee.options=clean
+mvn -P ${ENV} ${ARGS} apigee-enterprise:deploy -Dapigee.options=clean
 
-mvn -P test apigee-config:resourcefiles -Dapigee.config.options=delete
-mvn -P test apigee-config:targetservers -Dapigee.config.options=delete
+mvn -P ${ENV} ${ARGS} apigee-config:resourcefiles -Dapigee.config.options=delete
+mvn -P ${ENV} ${ARGS} apigee-config:targetservers -Dapigee.config.options=delete
 
-mvn -P test clean
+mvn -P ${ENV} ${ARGS} clean
 rm -rf targetnode
 ```
 ## TODO

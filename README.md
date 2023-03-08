@@ -121,9 +121,14 @@ mvn -P test clean
 rm -rf targetnode
 ```
 ## TODO
-1. Generate load and show analytics
-2. Install Spec to drupal portal
+1. Generate load and show analytics.\
+For example:
 ```
-mvn -P test" apigee-smartdocs:apidoc -Dapigee.smartdocs.config.options=create -Dpusername=from-marketplace -Dppassword=from-marketplace
+export NUM_CALLS=100
+export CONCURRENT_CLIENTS=10
+export API_HOSTNAME=your-hostname
+export KEY=your-app-key
+hey -n $NUM_CALLS -c $CONCURRENT_CLIENTS -m GET -H x-apikey:$KEY https://$API_HOSTNAME/pingstatus-mint/v1/ping
+hey -n $NUM_CALLS -c $CONCURRENT_CLIENTS -m GET -H x-apikey:$KEY https://$API_HOSTNAME/pingstatus-mint/v1/status
 ```
-3. Test cleanup
+2. Test cleanup

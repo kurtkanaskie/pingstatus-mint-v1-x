@@ -18,27 +18,37 @@
 
 set -e
 
-echo Pipeline cleanup for pingstatus-mint-v1 in project: "$ORG" for environment: "$ENV"
+echo Pipeline for \"pingstatus-mint-v1\" in project: \"${ORG}\" for environment: \"${ENV}\"
+echo
+echo ARGS=$ARGS
 
-mvn -P "$ENV" -Dskip.integration=true -Dapigee.config.options=delete -Dapigee.options=clean \
+read -p "OK to proceed (Y/n)? " i
+if [ "$i" != "Y" ]
+then
+  echo aborted
+  exit 1
+fi
+echo Proceeding...
+
+mvn -P ${ENV} ${ARGS} -Dskip.integration=true -Dapigee.config.options=delete -Dapigee.options=clean \
     process-resources \
     apigee-config:apps \
     apigee-config:apiproducts \
     apigee-config:developers \
     apigee-enterprise:deploy
 
-mvn -P "$ENV" clean
-mvn -P "$ENV" resources:copy-resources@copy-resources
-mvn -P "$ENV" replacer:replace@replace
-mvn -P "$ENV" apigee-config:apps -Dapigee.config.options=delete
-mvn -P "$ENV" apigee-config:developers
-mvn -P "$ENV" apigee-config:apiproducts
+mvn -P ${ENV} ${ARGS} clean
+mvn -P ${ENV} ${ARGS} resources:copy-resources@copy-resources
+mvn -P ${ENV} ${ARGS} replacer:replace@replace
+mvn -P ${ENV} ${ARGS} apigee-config:apps -Dapigee.config.options=delete
+mvn -P ${ENV} ${ARGS} apigee-config:developers
+mvn -P ${ENV} ${ARGS} apigee-config:apiproducts
 
 # delete the proxy
-mvn -P "$ENV" apigee-enterprise:deploy -Dapigee.options=clean
+mvn -P ${ENV} ${ARGS} apigee-enterprise:deploy -Dapigee.options=clean
 
-mvn -P "$ENV" apigee-config:resourcefiles
-mvn -P "$ENV" apigee-config:targetservers
+mvn -P ${ENV} ${ARGS} apigee-config:resourcefiles
+mvn -P ${ENV} ${ARGS} apigee-config:targetservers
 
-mvn -P "$ENV" clean
+mvn -P ${ENV} ${ARGS} clean
 rm -rf targetnode

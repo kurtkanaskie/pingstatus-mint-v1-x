@@ -46,9 +46,22 @@ export ARGS="-Dapigee.org=$ORG \
 Or update each pom.xml profile to reflect your specifics (e.g. org, env, hostname, SA credentials).
 
 ## Initial build and deployment
+### Pipeline
 All at once
 ```
 ./pipeline.sh
+```
+
+### Maven all at once
+Only for proxy and maven configuration items.
+```
+mvn -P test install
+```
+
+### Cloud Build all at once
+Only for proxy and maven configuration items.
+```
+cloud-build-local --dryrun=true --config=cloudbuild-test.yaml --substitutions=BRANCH_NAME=local-gcloud,COMMIT_SHA=none .
 ```
 
 ### Individual Pipeline Steps
@@ -97,6 +110,13 @@ mvn -P ${ENV} ${ARGS} frontend:npm@integration
 mvn -P ${ENV} ${ARGS} resources:copy-resources@copy-resources replacer:replace@replace apigee-config:resourcefiles apigee-config:exportAppKeys frontend:npm@integration
 ```
 
+### Just run the tests (after skip.clean) - for test iterations or un failure
+* mvn -P test resources:copy-resources replacer:replace frontend:npm@integration -Dapi.testtag=@cors
+* npm run integration
+* npm run integration -- --tags @get-status
+* npm run integration -- --tags @cors
+
+
 ## Drupal
 Enable modules JSON:API and HTTP Basic Authentication.
 
@@ -111,7 +131,13 @@ Use username not email for admin, e.g. maintenance
 mvn -P ${ENV} ${ARGS} clean resources:copy-resources replacer:replace apigee-smartdocs:apidoc
 ```
 
-### Cleanup (NOT TESTED)
+## Clean Up (NOT TESTED)
+All at once
+```
+./cleanup.sh
+```
+
+### Individual Clean Up Steps
 ```
 mvn -P ${ENV} ${ARGS} -Dskip.integration=true -Dapigee.config.options=delete -Dapigee.options=clean \
     process-resources \

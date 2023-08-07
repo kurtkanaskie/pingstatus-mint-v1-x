@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-debug">
+    <AssignVariable>
+        <Name>sc-content</Name>
+        <Ref>sc-response.content</Ref>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>sc-content</Name>
+        <Ref>servicecallout.SC-log-mock.target.url</Ref>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>sc-status-code</Name>
+        <Ref>sc-response.status.code</Ref>
+    </AssignVariable>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</AssignMessage>

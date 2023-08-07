@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout continueOnError="false" enabled="true" name="SC-log-mock">
+    <Request>
+        <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+        <Set>
+            <Verb>POST</Verb>
+            <Payload contentType="application/json">
+            {
+                "pr.mint.limitscheck.is_request_blocked":"{mint.limitscheck.is_request_blocked}",
+                "pr.mint.limitscheck.is_subscription_found":"{mint.limitscheck.is_subscription_found}",
+                "pr.mint.limitscheck.purchased_product_name":"{mint.limitscheck.purchased_product_name}",
+                "pr.mint.limitscheck.status_message":"{mint.limitscheck.status_message}",
+                "pcf.mint.mintng_consumption_pricing_rates":"in doc but undefined",
+                "pcf.mint.mintng_consumption_pricing_rate":"in doc but undefined",
+                "pcf.mint.mintng_consumption_pricing_type":"in doc but undefined",
+                "dc.mint.mintng_currency":"{mint.mintng_currency}",
+                "pcf.mint.mintng_dev_share":"in doc but undefined",
+                "pr.mint.mintng_is_apiproduct_monetized":"{mint.mintng_is_apiproduct_monetized}",
+                "dc.pcf.mint.mintng_price":"{mint.mintng_price}",
+                "dc.pcf.mint.mintng_price_multiplier":"{mint.mintng_price_multiplier}",
+                "pcf.mint.mintng_rate":"in doc but undefined",
+                "pcf.mint.mintng_rate_before_multipliers":"in doc but undefined",
+                "pr.mint.mintng_rate_plan_id":"{mint.mintng_rate_plan_id}",
+                "pcf.mint.mintng_revenue_share_rates":"in doc but undefined",
+                "pcf.mint.mintng_revenue_share_type":"in doc but undefined",
+                "dc.mint.mintng_tx_success":"{mint.mintng_tx_success}",
+                "pr.mint.prepaid_developer_balance":"in doc but undefined",
+                "pcf.mint.prepaid_developer_currency":"in doc but undefined",
+                "pcf.mint.prepaid_updated_developer_usage":"in doc but undefined",
+                "pr.mint.rateplan_end_time_ms":"in doc but undefined",
+                "pcf.mint.status":"in doc but undefined",
+                "pcf.mint.status_code":"in doc but undefined",
+                "pr.mint.subscription_start_time_ms":"{mint.subscription_start_time_ms}",
+                "pr.mint.subscription_end_time_ms":"in doc but undefined",
+                "pcf.mint.tx_success_result":"in doc but undefined"
+            }
+            </Payload>
+        </Set>
+    </Request>
+    <Response>sc-response</Response>
+    <HTTPTargetConnection>
+        <URL>https://xapi-dev.kurtkanaskie.net/logging-mock</URL>
+    </HTTPTargetConnection>
+</ServiceCallout>

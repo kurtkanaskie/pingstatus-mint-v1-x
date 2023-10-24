@@ -1,4 +1,4 @@
-# Free, Ping and Status API with Monetization
+# Free, Ping and Status APIs with Monetization
 
 This simple proxy demonstrates the use of Monetization in Apigee X.
 It shows how to control which operations are monetized and how to use the rate multiplier. It also shows how to use revenue share.\

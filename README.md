@@ -54,6 +54,62 @@ export ARGS="-Dapigee.org=$ORG \
 
 Or update each pom.xml profile to reflect your specifics (e.g. org, env, hostname, SA credentials).
 
+## Proxy Design
+### PreFlow
+Since we want to control which flows are charged and set other monetization values per flow, the **PreFlow** in the proxy merely verifies the API key and gets some configuration values.
+
+![Pre Flow](./images/pre-flow.png)
+### Free Conditional Flow
+The `/free` conditional flow enforces quota based on the API Product on the request and counts quota on a successful response. The AssignMessage **AM-monetization-free** sets a variable, in this case a header, to hold the value `false` for the Monetization Success value.
+```
+    <AssignVariable>
+        <Name>response.header.X-Monetization-Success</Name>
+        <Value>false</Value>
+    </AssignVariable>
+```
+![Free Flow](./images/free-flow.png)
+
+### Charged Conditional Flows
+Each of the conditional flows follow a similar pattern of enforcing quota, enforcing monetization limits, counting quota on successful response and setting values for:
+- Monetization Success
+- Rate Multiplier
+- Revenue Share Gross Price
+- Currency
+
+#### Ping Conditional Flow
+The `/ping` flow charges one for each call.
+![Ping Flow](./images/ping-flow.png)
+
+#### Status Conditional Flow
+The `/status` flow charges two for each call.
+![Status Flow](./images/status-flow.png)
+
+### PostFlow
+The **PostFlow** response uses the DataCapture policy to set the special Monetization values from the variables set in each flow, headers in this example, but they could be flow variables.
+```
+<DataCapture name="DC-monetization" continueOnError="false" enabled="true">
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <Capture>
+        <Collect ref="response.header.x-monetization-currency" default="USD"/>
+        <DataCollector scope="monetization">currency</DataCollector>
+    </Capture>
+    <Capture>
+        <Collect ref="response.header.x-monetization-success" default="false"/>
+        <DataCollector scope="monetization">transactionSuccess</DataCollector>
+    </Capture>
+    <Capture>
+        <Collect ref="response.header.x-monetization-multiplier" default="1"/>
+        <DataCollector scope="monetization">perUnitPriceMultiplier</DataCollector>
+    </Capture>
+    <Capture>
+        <Collect ref="response.header.x-monetization-revenue-share" default="0"/>
+        <DataCollector scope="monetization">revShareGrossPrice</DataCollector>
+    </Capture>
+</DataCapture>
+```
+![Post Flow](./images/post-flow.png)
+
+
 ## Initial build and deployment
 ### Pipeline
 All at once

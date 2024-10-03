@@ -15,6 +15,8 @@
             <Header name="X-Monetization-Quota">{verifyapikey.VA-Header.apiproduct.developer.quota.limit} per {verifyapikey.VA-Header.apiproduct.developer.quota.interval} {verifyapikey.VA-Header.apiproduct.developer.quota.timeunit}</Header>
             <Header name="X-Monetization-Enforce">{ratelimit.QU-monetization-enforce.used.count} of {ratelimit.QU-monetization-enforce.allowed.count} with {ratelimit.QU-monetization-enforce.available.count} available and {ratelimit.QU-monetization-enforce.exceed.count} exceeded</Header>
             <Header name="X-Monetization-Count">{ratelimit.QU-monetization-count.used.count} of {ratelimit.QU-monetization-count.allowed.count} with {ratelimit.QU-monetization-count.available.count} available and {ratelimit.QU-monetization-count.exceed.count} exceeded</Header>
+            <Header name="X-Quota-Enforce-Expires">{ratelimit.QU-monetization-enforce.expiry.time}</Header>
+            <Header name="X-Quota-Count-Expires">{ratelimit.QU-monetization-count.expiry.time}</Header>
         </Headers>
     </Set>
 </AssignMessage>

@@ -32,9 +32,6 @@
                 <Name>AM-remove-x-apikey</Name>
             </Step>
             <Step>
-                <Name>QU-monetization-enforce</Name>
-            </Step>
-            <Step>
                 <Name>AM-config-properties</Name>
             </Step>
         </Request>
@@ -43,10 +40,17 @@
     <Flows>
         <Flow name="free">
             <Description>free</Description>
-            <Request/>
+            <Request>
+                <Step>
+                    <Name>QU-monetization-enforce</Name>
+                </Step>
+            </Request>
             <Response>
                 <Step>
                     <Name>JS-set-time-data</Name>
+                </Step>
+                <Step>
+                    <Name>QU-monetization-count</Name>
                 </Step>
                 <Step>
                     <Name>AM-free-response</Name>
@@ -61,6 +65,9 @@
             <Description>proxy health check</Description>
             <Request>
                 <Step>
+                    <Name>QU-monetization-enforce</Name>
+                </Step>
+                <Step>
                     <Name>MC-rate-plan</Name>
                 </Step>
                 <!-- Enforce that this proxy can ONLY be used with API Product that has a Rate Plan -->
@@ -72,6 +79,9 @@
             <Response>
                 <Step>
                     <Name>JS-set-time-data</Name>
+                </Step>
+                <Step>
+                    <Name>QU-monetization-count</Name>
                 </Step>
                 <Step>
                     <Name>AM-ping-response</Name>
@@ -85,9 +95,12 @@
             </Response>
             <Condition>(proxy.pathsuffix MatchesPath "/ping") and (request.verb = "GET")</Condition>
         </Flow>
-        <Flow name="status $">
+        <Flow name="status $$">
             <Description>back end health check</Description>
             <Request>
+                <Step>
+                    <Name>QU-monetization-enforce</Name>
+                </Step>
                 <Step>
                     <Name>MC-rate-plan</Name>
                 </Step>
@@ -100,6 +113,9 @@
             <Response>
                 <Step>
                     <Name>JS-set-time-data</Name>
+                </Step>
+                <Step>
+                    <Name>QU-monetization-count</Name>
                 </Step>
                 <Step>
                     <Name>AM-status-response</Name>
@@ -132,7 +148,7 @@
                 <Name>DC-monetization</Name>
             </Step>
             <Step>
-                <Name>QU-monetization-count</Name>
+                <Name>AM-quota-headers</Name>
             </Step>
         </Response>
     </PostFlow>

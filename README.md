@@ -41,6 +41,15 @@ export ARGS="-Dapigee.org=$ORG \
     -Dportal.url=$DRUPAL_PORTAL_URL \
     -Dportal.username=$PORTAL_USERNAME \
     -Dportal.password=$PORTAL_PASSWORD"
+
+or
+export ARGS="-Dapigee.org=$ORG \
+    -Dapigee.env=$ENV \
+    -Dapi.northbound.domain=$API \
+    -Dbearer=$(gcloud auth print-access-token) \
+    -Dportal.url=$DRUPAL_PORTAL_URL \
+    -Dportal.username=$PORTAL_USERNAME \
+    -Dportal.password=$PORTAL_PASSWORD"
 ```
 
 Or update each pom.xml profile to reflect your specifics (e.g. org, env, hostname, SA credentials).
@@ -53,9 +62,14 @@ All at once
 ```
 
 ### Maven all at once
-Only for proxy and maven configuration items.
+Only for proxy and maven configuration items, using Service Account.
 ```
 mvn -P test install
+```
+
+Only for proxy and maven configuration items, using Bearer token.
+```
+mvn -P test install -Dbearer=$(gcloud auth print-access-token)
 ```
 
 ### Cloud Build all at once

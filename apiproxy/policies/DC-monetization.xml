@@ -23,4 +23,9 @@
         <Collect ref="system.uuid" default="0"/>
         <DataCollector>dc_system_uuid</DataCollector>
     </Capture>
+    <!--messageid is gateway_flow_id in analytics-->
+    <!--<Capture>-->
+    <!--    <Collect ref="messageid" default="0"/>-->
+    <!--    <DataCollector>dc_messageid</DataCollector>-->
+    <!--</Capture>-->
 </DataCapture>

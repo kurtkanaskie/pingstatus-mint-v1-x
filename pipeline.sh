@@ -34,29 +34,30 @@ then
 fi
 echo Proceeding...
 
-mvn -P ${ENV} ${ARGS} clean
-mvn -P ${ENV} ${ARGS} jshint:lint
-mvn -P ${ENV} ${ARGS} frontend:install-node-and-npm@install-node-and-npm
-mvn -P ${ENV} ${ARGS} frontend:npm@npm-install
-mvn -P ${ENV} ${ARGS} frontend:npm@apigeelint
-mvn -P ${ENV} ${ARGS} frontend:npm@unit
-mvn -P ${ENV} ${ARGS} resources:copy-resources@copy-resources
-mvn -P ${ENV} ${ARGS} replacer:replace@replace
-mvn -P ${ENV} ${ARGS} apigee-enterprise:configure
-mvn -P ${ENV} ${ARGS} apigee-config:targetservers
-mvn -P ${ENV} ${ARGS} apigee-config:resourcefiles
+# Thêm dấu ngoặc kép vào "${ENV}" và "${ARGS}" để ngăn chặn Command Injection
+mvn -P "${ENV}" "${ARGS}" clean
+mvn -P "${ENV}" "${ARGS}" jshint:lint
+mvn -P "${ENV}" "${ARGS}" frontend:install-node-and-npm@install-node-and-npm
+mvn -P "${ENV}" "${ARGS}" frontend:npm@npm-install
+mvn -P "${ENV}" "${ARGS}" frontend:npm@apigeelint
+mvn -P "${ENV}" "${ARGS}" frontend:npm@unit
+mvn -P "${ENV}" "${ARGS}" resources:copy-resources@copy-resources
+mvn -P "${ENV}" "${ARGS}" replacer:replace@replace
+mvn -P "${ENV}" "${ARGS}" apigee-enterprise:configure
+mvn -P "${ENV}" "${ARGS}" apigee-config:targetservers
+mvn -P "${ENV}" "${ARGS}" apigee-config:resourcefiles
 
 # System.uuid for analytics not needed for Monetization, used for debugging.
 # ./create_datacollector.sh
 
-mvn -P ${ENV} ${ARGS} apigee-enterprise:deploy
-mvn -P ${ENV} ${ARGS} apigee-config:apiproducts
+mvn -P "${ENV}" "${ARGS}" apigee-enterprise:deploy
+mvn -P "${ENV}" "${ARGS}" apigee-config:apiproducts
 
 # Rate Plans
 ./create_rateplan_basic.sh
 ./create_rateplan_revshare.sh
 
-mvn -P ${ENV} ${ARGS} apigee-config:developers
+mvn -P "${ENV}" "${ARGS}" apigee-config:developers
 
 # Prepaid and Postpaid developers
 ./update_developer_monetization_config.sh
@@ -68,6 +69,6 @@ mvn -P ${ENV} ${ARGS} apigee-config:developers
 ./create_developer_subscription_basic.sh
 ./create_developer_subscription_revshare.sh
 
-mvn -P ${ENV} ${ARGS} apigee-config:apps
-mvn -P ${ENV} ${ARGS} apigee-config:exportAppKeys
-mvn -P ${ENV} ${ARGS} frontend:npm@integration
+mvn -P "${ENV}" "${ARGS}" apigee-config:apps
+mvn -P "${ENV}" "${ARGS}" apigee-config:exportAppKeys
+mvn -P "${ENV}" "${ARGS}" frontend:npm@integration

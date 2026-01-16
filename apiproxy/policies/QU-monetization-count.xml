@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Quota name="QU-monetization-count" type="flexi">
-    <SharedName>monetization</SharedName>
-    <CountOnly>true</CountOnly>
-    <UseQuotaConfigInAPIProduct stepName="VA-Header">
-        <DefaultConfig>
-            <Allow>42</Allow>
-            <Interval>1</Interval>
-            <TimeUnit>minute</TimeUnit>
-        </DefaultConfig>
-    </UseQuotaConfigInAPIProduct>
-    <Distributed>true</Distributed>
-    <Synchronous>true</Synchronous>
+  <SharedName>monetization</SharedName>
+  <CountOnly>true</CountOnly>
+  <Identifier ref="developer.id"/>
+  <UseQuotaConfigInAPIProduct stepName="VA-header">
+    <DefaultConfig>
+      <Allow>42</Allow>
+      <Interval>1</Interval>
+      <TimeUnit>minute</TimeUnit>
+    </DefaultConfig>
+  </UseQuotaConfigInAPIProduct>
+  <Distributed>true</Distributed>
+  <Synchronous>true</Synchronous>
 </Quota>

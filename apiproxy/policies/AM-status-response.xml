@@ -1,31 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <AssignMessage async="false" continueOnError="false" enabled="true" name="AM-status-response">
-    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
-    <AssignVariable>
-        <!-- Can't use ':' in literal format -->
-        <Name>format_time</Name>
-        <Value>HH:mm:ss</Value>
-    </AssignVariable>
-    <Set>
-        <Headers>
-            <Header name="X-Monetization-Multiplier">2</Header>
-        </Headers>
-        <Payload contentType="application/json">
+  <!-- This is required otherwise "yyyy-MM-dd,system.timestamp" is reported as unresolved variable -->
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <AssignVariable>
+    <!-- Can't use ':' in literal format -->
+    <Name>format_time</Name>
+    <Value>HH:mm:ss</Value>
+  </AssignVariable>
+  <Set>
+    <Headers>
+      <!-- Used for Monetization  -->
+      <Header name="X-Monetization-Currency">USD</Header>
+      <Header name="X-Monetization-Success">true</Header>
+      <Header name="X-Monetization-Multiplier">2</Header>
+      <Header name="X-Monetization-Revenue-Share">2.0</Header>
+      <!-- Used for feedback  -->
+      <Header name="X-Monetization-Developer">{verifyapikey.VA-header.developer.email}</Header>
+      <Header name="X-Monetization-Application">{verifyapikey.VA-header.developer.app.name}</Header>
+      <Header name="X-Monetization-API-Product">{mint.limitscheck.purchased_product_name}</Header>
+      <Header name="X-Monetization-Rate-Plan-Id">{mint.mintng_rate_plan_id}</Header>
+      <Header name="X-Monetization-Quota">{verifyapikey.VA-header.apiproduct.developer.quota.limit} per {verifyapikey.VA-header.apiproduct.developer.quota.interval} {verifyapikey.VA-header.apiproduct.developer.quota.timeunit}</Header>
+      <Header name="X-Monetization-Enforce">{ratelimit.QU-monetization-enforce.used.count} of {ratelimit.QU-monetization-enforce.allowed.count} with {ratelimit.QU-monetization-enforce.available.count} available and {ratelimit.QU-monetization-enforce.exceed.count} exceeded</Header>
+      <Header name="X-Monetization-Count">{ratelimit.QU-monetization-count.used.count} of {ratelimit.QU-monetization-count.allowed.count} with {ratelimit.QU-monetization-count.available.count} available and {ratelimit.QU-monetization-count.exceed.count} exceeded</Header>
+      <Header name="X-Quota-Enforce-Expires">{ratelimit.QU-monetization-enforce.expiry.time}</Header>
+      <Header name="X-Quota-Count-Expires">{ratelimit.QU-monetization-count.expiry.time}</Header>
+    </Headers>
+    <Payload contentType="application/json">
 {
     "system.uuid":"{system.uuid}",
     "client": "{client.host}",
     "organization": "{organization.name}",
     "environment": "{environment.name}",
-    "developerEmail": "{verifyapikey.VA-Header.developer.email}",
-    "developerFirstName": "{verifyapikey.VA-Header.developer.firstName}",
-    "developerLastName": "{verifyapikey.VA-Header.developer.lastName}",
-    "application": "{verifyapikey.VA-Header.developer.app.name}",
-    "product": "{verifyapikey.VA-Header.apiproduct.name}",
+    "developerEmail": "{verifyapikey.VA-header.developer.email}",
+    "developerFirstName": "{verifyapikey.VA-header.developer.firstName}",
+    "developerLastName": "{verifyapikey.VA-header.developer.lastName}",
+    "application": "{verifyapikey.VA-header.developer.app.name}",
+    "product": "{verifyapikey.VA-header.apiproduct.name}",
+    "apiproduct.operation.resource":"{verifyapikey.VA-header.apiproduct.operation.resource}",
+    "apiproduct.operation.methods":"{verifyapikey.VA-header.apiproduct.operation.methods}",
+    "apiproduct.operation.attributes.operation":"{apiproduct.operation.attributes.operation}",
     "apiproxy": "{apiproxy.name}",
     "basepath": "{proxy.basepath}",
     "apiproxyRevision": "{apiproxy.revision}",
     "path": "{proxy.basepath}{proxy.pathsuffix}",
-    "quota":"{verifyapikey.VA-Header.apiproduct.developer.quota.limit} per {verifyapikey.VA-Header.apiproduct.developer.quota.interval} {verifyapikey.VA-Header.apiproduct.developer.quota.timeunit}",
+    "quota":"{verifyapikey.VA-header.apiproduct.developer.quota.limit} per {verifyapikey.VA-header.apiproduct.developer.quota.interval} {verifyapikey.VA-header.apiproduct.developer.quota.timeunit}",
     "enforce":"{ratelimit.QU-monetization-enforce.used.count} of {ratelimit.QU-monetization-enforce.allowed.count} with {ratelimit.QU-monetization-enforce.available.count} available and {ratelimit.QU-monetization-enforce.exceed.count} exceeded",
     "count":"{ratelimit.QU-monetization-count.used.count} of {ratelimit.QU-monetization-count.allowed.count} with {ratelimit.QU-monetization-count.available.count} available and {ratelimit.QU-monetization-count.exceed.count} exceeded",
     "resetsTime":"{timeFormatMs(yyyy-MM-dd,ratelimit.QU-monetization-enforce.expiry.time)}T{timeFormatMs(format_time,ratelimit.QU-monetization-enforce.expiry.time)}Z",
@@ -40,39 +58,9 @@
             "Content-Length":"{response.header.content-length}"
         },
         "content":{response.content}
-    },
-    "mintVariables":{
-        "pr.mint.limitscheck.is_request_blocked":"{mint.limitscheck.is_request_blocked}",
-        "pr.mint.limitscheck.is_subscription_found":"{mint.limitscheck.is_subscription_found}",
-        "pr.mint.limitscheck.purchased_product_name":"{mint.limitscheck.purchased_product_name}",
-        "pr.mint.limitscheck.status_message":"{mint.limitscheck.status_message}",
-        "pcf.mint.mintng_consumption_pricing_rates":"{mint.mintng_consumption_pricing_rates}",
-        "pcf.mint.mintng_consumption_pricing_type":"{mint.mintng_consumption_pricing_type}",
-        "dc.mint.mintng_currency":"{mint.mintng_currency}",
-        "pcf.mint.mintng_dev_share":"{mint.mintng_dev_share}",
-        "pr.mint.mintng_is_apiproduct_monetized":"{mint.mintng_is_apiproduct_monetized}",
-        "dc.pcf.mint.mintng_price":"{mint.mintng_price}",
-        "dc.pcf.mint.mintng_price_multiplier":"{mint.mintng_price_multiplier}",
-        "pcf.mint.mintng_rate":"{mint.mintng_rate}",
-        "pcf.mint.mintng_rate_before_multipliers":"{mint.mintng_rate_before_multipliers}",
-        "pr.mint.mintng_rate_plan_id":"{mint.mintng_rate_plan_id}",
-        "pcf.mint.mintng_revenue_share_rates":"{mint.mintng_revenue_share_rates}",
-        "pcf.mint.mintng_revenue_share_type":"{mint.mintng_revenue_share_type}",
-        "dc.mint.mintng_tx_success":"{mint.mintng_tx_success}",
-        "pr.mint.prepaid_developer_balance":"{mint.prepaid_developer_balance}",
-        "pcf.mint.prepaid_developer_currency":"{mint.prepaid_developer_currency}",
-        "pcf.mint.prepaid_updated_developer_usage":"{mint.prepaid_updated_developer_usage}",
-        "pr.mint.rateplan_end_time_ms":"{mint.rateplan_end_time_ms}",
-        "pr.mint.request_count":"{mint.request_count}",
-        "pcf.mint.status":"{mint.status}",
-        "pcf.mint.status_code":"{mint.status_code}",
-        "pr.mint.subscription_start_time_ms":"{mint.subscription_start_time_ms}",
-        "pr.mint.subscription_end_time_ms":"{mint.subscription_end_time_ms}",
-        "pcf.mint.tx_success_result":"{mint.tx_success_result}"
     }
 }
 </Payload>
-        <StatusCode>200</StatusCode>
-        <ReasonPhrase>OK</ReasonPhrase>
-    </Set>
+    <StatusCode>200</StatusCode>
+  </Set>
 </AssignMessage>

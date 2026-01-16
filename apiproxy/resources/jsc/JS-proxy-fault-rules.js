@@ -25,9 +25,9 @@ switch(faultName) {
         responseCode = "429";
         reasonPhrase = "Exceeded quota";
         code = "429.001";
-        var limit = context.getVariable( "verifyapikey.VA-Header.apiproduct.developer.quota.limit");
-        var interval = context.getVariable( "verifyapikey.VA-Header.apiproduct.developer.quota.interval");
-        var timeunit = context.getVariable("verifyapikey.VA-Header.apiproduct.developer.quota.timeunit");
+        var limit = context.getVariable( "verifyapikey.VA-header.apiproduct.developer.quota.limit");
+        var interval = context.getVariable( "verifyapikey.VA-header.apiproduct.developer.quota.interval");
+        var timeunit = context.getVariable("verifyapikey.VA-header.apiproduct.developer.quota.timeunit");
         var used = context.getVariable( "ratelimit.QU-monetization-enforce.used.count");
         var allowed = context.getVariable( "ratelimit.QU-monetization-enforce.allowed.count");
         description = "Rate limit exceeded: quota of "+ limit + " per "+interval + " " + timeunit + ", used: " + used + " of " +allowed;
@@ -104,7 +104,7 @@ switch(faultName) {
             responseCode = "500";
             reasonPhrase = "Internal Server Error";
             code = "500.004";
-            description = "API Product is misconfigured: " + context.getVariable("verifyapikey.VA-Header.apiproduct.name");
+            description = "API Product is misconfigured: " + context.getVariable("verifyapikey.VA-header.apiproduct.name");
         } else if ( context.getVariable("raisefault.RF-invalid-client-cn.failed") === true ) {
             responseCode = "401";
             reasonPhrase = "Unauthorized";

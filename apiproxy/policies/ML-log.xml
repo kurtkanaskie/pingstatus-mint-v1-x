@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <MessageLogging continueOnError="false" enabled="true" name="ML-log">
-    <DisplayName>ML-log</DisplayName>
-    <Syslog>
-        <Message>
+  <Syslog>
+    <Message>
         Message.id = {request.header.id} 
         Mint: 
         "pr.mint.limitscheck.is_request_blocked":"{mint.limitscheck.is_request_blocked}",
@@ -33,7 +32,7 @@
         "pr.mint.subscription_end_time_ms":"{mint.subscription_end_time_ms}",
         "pcf.mint.tx_success_result":"{mint.tx_success_result}"
         </Message>
-        <Host>10.0.0.0</Host>
-        <Port>556</Port>
-    </Syslog>
+    <Host>10.0.0.0</Host>
+    <Port>556</Port>
+  </Syslog>
 </MessageLogging>

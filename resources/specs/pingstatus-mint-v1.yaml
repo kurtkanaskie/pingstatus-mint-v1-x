@@ -1,13 +1,13 @@
 openapi: 3.0.3
 info:
   version: 1.0.0
-  title: pingstatus-mint-v1-test
+  title: pingstatus-mint-v1-prod
   description:
-    Health checks for proxy (free, ping$) and target backend (status$$).
+    Health checks for proxy (free, $ping) and target backend ($$status).
   contact:
     email: kurtkanaskie@google.com
 servers:
-  - url: https://xapi-test.kurtkanaskie.net/pingstatus-mint/v1
+  - url: https://m-xapi.kurtkanaskie.net/pingstatus-mint/v1
 paths:
   /free:
     get:

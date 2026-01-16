@@ -1,177 +1,159 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ProxyEndpoint name="default">
-    <Description/>
-    <DefaultFaultRule name="DefaultFaultRule">
+  <Description/>
+  <DefaultFaultRule name="DefaultFaultRule">
+    <Step>
+      <Condition>(flow.error.code == null)</Condition>
+      <Name>AM-set-proxy-default-error-vars</Name>
+    </Step>
+    <Step>
+      <Name>AM-set-standard-error-response</Name>
+    </Step>
+    <AlwaysEnforce>true</AlwaysEnforce>
+  </DefaultFaultRule>
+  <FaultRules>
+    <FaultRule name="ProxyFaultRules">
+      <!-- Quiet apigeelint -->
+      <Condition>(fault.name != null)</Condition>
+      <Step>
+        <Name>JS-proxy-fault-rules</Name>
+      </Step>
+    </FaultRule>
+  </FaultRules>
+  <PreFlow name="PreFlow">
+    <Request>
+      <Step>
+        <Name>CORS-any</Name>
+      </Step>
+      <Step>
+        <Name>VA-header</Name>
+      </Step>
+      <Step>
+        <Name>AM-remove-x-apikey</Name>
+      </Step>
+      <Step>
+        <Name>AM-config-properties</Name>
+      </Step>
+    </Request>
+    <Response/>
+  </PreFlow>
+  <Flows>
+    <Flow name="free">
+      <Description>free</Description>
+      <Request>
         <Step>
-            <Condition>(flow.error.code == null)</Condition>
-            <Name>AM-set-proxy-default-error-vars</Name>
+          <Name>QU-monetization-enforce</Name>
+        </Step>
+      </Request>
+      <Response>
+        <Step>
+          <Name>JS-set-time-data</Name>
         </Step>
         <Step>
-            <Name>AM-set-standard-error-response</Name>
+          <Name>QU-monetization-count</Name>
         </Step>
-        <AlwaysEnforce>true</AlwaysEnforce>
-    </DefaultFaultRule>
-    <FaultRules>
-        <FaultRule name="ProxyFaultRules">
-            <!-- Quiet apigeelint -->
-            <Condition>(fault.name != null)</Condition>
-            <Step>
-                <Name>JS-proxy-fault-rules</Name>
-            </Step>
-        </FaultRule>
-    </FaultRules>
-    <PreFlow name="PreFlow">
-        <Request>
-            <Step>
-                <Name>CORS</Name>
-            </Step>
-            <Step>
-                <Name>VA-Header</Name>
-            </Step>
-            <Step>
-                <Name>AM-remove-x-apikey</Name>
-            </Step>
-            <Step>
-                <Name>AM-config-properties</Name>
-            </Step>
-        </Request>
-        <Response/>
-    </PreFlow>
-    <Flows>
-        <Flow name="free">
-            <Description>free</Description>
-            <Request>
-                <Step>
-                    <Name>QU-monetization-enforce</Name>
-                </Step>
-            </Request>
-            <Response>
-                <Step>
-                    <Name>JS-set-time-data</Name>
-                </Step>
-                <Step>
-                    <Name>QU-monetization-count</Name>
-                </Step>
-                <Step>
-                    <Name>AM-free-response</Name>
-                </Step>
-                <Step>
-                    <Name>AM-monetization-free</Name>
-                </Step>
-            </Response>
-            <Condition>(request.verb = "GET") and (proxy.pathsuffix MatchesPath "/free")</Condition>
-        </Flow>
-        <Flow name="ping $">
-            <Description>proxy health check</Description>
-            <Request>
-                <Step>
-                    <Name>QU-monetization-enforce</Name>
-                </Step>
-                <Step>
-                    <Name>MC-rate-plan</Name>
-                </Step>
-                <!-- Enforce that this proxy can ONLY be used with API Product that has a Rate Plan -->
-                <Step>
-                    <Condition>mint.limitscheck.status_message == "rateplan_not_available"</Condition>
-                    <Name>RF-rateplan-not-available</Name>
-                </Step>
-            </Request>
-            <Response>
-                <Step>
-                    <Name>JS-set-time-data</Name>
-                </Step>
-                <Step>
-                    <Name>QU-monetization-count</Name>
-                </Step>
-                <Step>
-                    <Name>AM-ping-response</Name>
-                </Step>
-                <Step>
-                    <Name>AM-ping-revshare</Name>
-                </Step>
-                <Step>
-                    <Name>AM-monetization-charge</Name>
-                </Step>
-            </Response>
-            <Condition>(proxy.pathsuffix MatchesPath "/ping") and (request.verb = "GET")</Condition>
-        </Flow>
-        <Flow name="status $$">
-            <Description>back end health check</Description>
-            <Request>
-                <Step>
-                    <Name>QU-monetization-enforce</Name>
-                </Step>
-                <Step>
-                    <Name>MC-rate-plan</Name>
-                </Step>
-                <!-- Enforce that this proxy can ONLY be used with API Product that has a Rate Plan -->
-                <Step>
-                    <Condition>mint.limitscheck.status_message == "rateplan_not_available"</Condition>
-                    <Name>RF-rateplan-not-available</Name>
-                </Step>
-            </Request>
-            <Response>
-                <Step>
-                    <Name>JS-set-time-data</Name>
-                </Step>
-                <Step>
-                    <Name>QU-monetization-count</Name>
-                </Step>
-                <Step>
-                    <Name>AM-status-response</Name>
-                </Step>
-                <Step>
-                    <Name>AM-status-revshare</Name>
-                </Step>
-                <Step>
-                    <Name>AM-monetization-charge</Name>
-                </Step>
-            </Response>
-            <Condition>(proxy.pathsuffix MatchesPath "/status") and (request.verb = "GET")</Condition>
-        </Flow>
-        <Flow name="catch all">
-            <Description>Catch any unmatched calls and raise fault</Description>
-            <Request>
-                <Step>
-                    <Name>RF-path-suffix-not-found</Name>
-                </Step>
-            </Request>
-            <Response/>
-            <Condition>(proxy.pathsuffix MatchesPath "**")</Condition>
-        </Flow>
-    </Flows>
-    <PostFlow name="PostFlow">
-        <Request/>
-        <Response>
-            <Step>
-                <Condition>(request.verb != "OPTIONS")</Condition>
-                <Name>DC-monetization</Name>
-            </Step>
-            <Step>
-                <Name>AM-quota-headers</Name>
-            </Step>
-        </Response>
-    </PostFlow>
-    <PostClientFlow name="PostFlow">
-        <Response>
-            <Step>
-                <Name>ML-log</Name>
-            </Step>
-            <Step>
-                <Name>SC-log-mock-pcf</Name>
-            </Step>
-        </Response>
-    </PostClientFlow>
-    <HTTPProxyConnection>
-        <BasePath>/pingstatus-mint/v1</BasePath>
-    </HTTPProxyConnection>
-    <RouteRule name="ping">
-        <Condition>(proxy.pathsuffix MatchesPath "/ping")</Condition>
-    </RouteRule>
-    <RouteRule name="free">
-        <Condition>(proxy.pathsuffix MatchesPath "/free")</Condition>
-    </RouteRule>
-    <RouteRule name="default">
-        <TargetEndpoint>default</TargetEndpoint>
-    </RouteRule>
+        <Step>
+          <Name>AM-free-response</Name>
+        </Step>
+      </Response>
+      <Condition>(request.verb = "GET") and (proxy.pathsuffix MatchesPath "/free")</Condition>
+    </Flow>
+    <Flow name="ping $">
+      <Description>proxy health check</Description>
+      <Request>
+        <Step>
+          <Name>QU-monetization-enforce</Name>
+        </Step>
+        <Step>
+          <Name>MC-rate-plan</Name>
+        </Step>
+        <!-- Enforce that this proxy can ONLY be used with API Product that has a Rate Plan -->
+        <Step>
+          <Condition>mint.limitscheck.status_message == "rateplan_not_available"</Condition>
+          <Name>RF-rateplan-not-available</Name>
+        </Step>
+      </Request>
+      <Response>
+        <Step>
+          <Name>JS-set-time-data</Name>
+        </Step>
+        <Step>
+          <Name>QU-monetization-count</Name>
+        </Step>
+        <Step>
+          <Name>AM-ping-response</Name>
+        </Step>
+      </Response>
+      <Condition>(proxy.pathsuffix MatchesPath "/ping") and (request.verb = "GET")</Condition>
+    </Flow>
+    <Flow name="status $$">
+      <Description>back end health check</Description>
+      <Request>
+        <Step>
+          <Name>QU-monetization-enforce</Name>
+        </Step>
+        <Step>
+          <Name>MC-rate-plan</Name>
+        </Step>
+        <!-- Enforce that this proxy can ONLY be used with API Product that has a Rate Plan -->
+        <Step>
+          <Condition>mint.limitscheck.status_message == "rateplan_not_available"</Condition>
+          <Name>RF-rateplan-not-available</Name>
+        </Step>
+      </Request>
+      <Response>
+        <Step>
+          <Name>JS-set-time-data</Name>
+        </Step>
+        <Step>
+          <Name>QU-monetization-count</Name>
+        </Step>
+        <Step>
+          <Name>AM-status-response</Name>
+        </Step>
+      </Response>
+      <Condition>(proxy.pathsuffix MatchesPath "/status") and (request.verb = "GET")</Condition>
+    </Flow>
+    <Flow name="catch all">
+      <Description>Catch any unmatched calls and raise fault</Description>
+      <Request>
+        <Step>
+          <Name>RF-path-suffix-not-found</Name>
+        </Step>
+      </Request>
+      <Response/>
+      <Condition>(proxy.pathsuffix MatchesPath "**")</Condition>
+    </Flow>
+  </Flows>
+  <PostFlow name="PostFlow">
+    <Request/>
+    <Response>
+      <Step>
+        <Condition>(request.verb != "OPTIONS")</Condition>
+        <Name>DC-monetization</Name>
+      </Step>
+    </Response>
+  </PostFlow>
+  <PostClientFlow name="PostFlow">
+    <Response>
+      <Step>
+        <Name>ML-log</Name>
+      </Step>
+      <Step>
+        <Name>SC-log-mock-pcf</Name>
+      </Step>
+    </Response>
+  </PostClientFlow>
+  <HTTPProxyConnection>
+    <BasePath>/pingstatus-mint/v1</BasePath>
+  </HTTPProxyConnection>
+  <RouteRule name="ping">
+    <Condition>(proxy.pathsuffix MatchesPath "/ping")</Condition>
+  </RouteRule>
+  <RouteRule name="free">
+    <Condition>(proxy.pathsuffix MatchesPath "/free")</Condition>
+  </RouteRule>
+  <RouteRule name="default">
+    <TargetEndpoint>default</TargetEndpoint>
+  </RouteRule>
 </ProxyEndpoint>

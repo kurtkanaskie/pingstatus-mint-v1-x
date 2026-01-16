@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <AssignMessage async="false" continueOnError="false" enabled="true" name="AM-remove-x-apikey">
-    <Remove>
-        <Headers>
-            <Header name="x-apikey"/>
-        </Headers>
-    </Remove>
+  <Remove>
+    <Headers>
+      <Header name="x-apikey"/>
+    </Headers>
+  </Remove>
 </AssignMessage>

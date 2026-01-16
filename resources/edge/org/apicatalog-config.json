@@ -7,7 +7,9 @@
          "vocabulary":"api_category",
          "field":"field_categories",
          "data":[
-            "Monetization","CI-CD","CI-CD test"
+            "CI-CD",
+            "CI-CD APIGEE_ENVIRONMENT",
+            "Monetization"
          ]
       }
    ]

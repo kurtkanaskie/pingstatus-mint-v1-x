@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <RaiseFault continueOnError="false" enabled="true" name="RF-rateplan-not-available">
-    <DisplayName>RF-rateplan-not-available</DisplayName>
-    <Properties/>
-    <FaultResponse>
-        <Set>
-            <Payload contentType="application/json">
+  <FaultResponse>
+    <Set>
+      <Payload contentType="application/json">
 {
 	"error": "Rate Plan not available",
-	"message": "API Product is misconfigured: {verifyapikey.VA-Header.apiproduct.name}"
+	"message": "API Product is misconfigured: {verifyapikey.VA-header.apiproduct.name}"
 }
 </Payload>
-            <StatusCode>500</StatusCode>
-            <ReasonPhrase>Internal Server Error</ReasonPhrase>
-        </Set>
-    </FaultResponse>
-    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+      <StatusCode>500</StatusCode>
+    </Set>
+  </FaultResponse>
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
 </RaiseFault>

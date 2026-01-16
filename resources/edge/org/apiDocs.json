@@ -1,0 +1,22 @@
+[
+    {
+        "title": "pingstatus-mint-v1-product-basic-APIGEE_ENVIRONMENT",
+        "description": "Product to test pingstatus-mint-v1 API in APIGEE_ENVIRONMENT env via CI/CD",
+        "anonAllowed": true,
+        "requireCallbackUrl": false,
+        "published": true,
+        "apiProductName": "pingstatus-mint-v1-product-basic-APIGEE_ENVIRONMENT",
+        "categories": [
+            "CI-CD"
+            "CI-CD APIGEE_ENVIRONMENT",
+            "Monetized"
+        ],
+        "imageUrl": "/files/pingstatus-mint-v1.png",
+        "oasDocumentation": {
+         "spec": {
+            "displayName": "pingstatus-mint-v1-product-APIGEE_ENVIRONMENT",
+            "file": "./target/resources/specs/pingstatus-mint-v1.yaml"
+          }
+       }
+    }
+]

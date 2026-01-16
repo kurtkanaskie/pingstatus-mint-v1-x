@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ServiceCallout continueOnError="false" enabled="true" name="SC-log-mock">
-    <Request>
-        <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
-        <Set>
-            <Verb>POST</Verb>
-            <Payload contentType="application/json">
+  <Request>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <Set>
+      <Verb>POST</Verb>
+      <Payload contentType="application/json">
             {
                 "pr.mint.limitscheck.is_request_blocked":"{mint.limitscheck.is_request_blocked}",
                 "pr.mint.limitscheck.is_subscription_found":"{mint.limitscheck.is_subscription_found}",
@@ -35,10 +35,10 @@
                 "pcf.mint.tx_success_result":"in doc but undefined"
             }
             </Payload>
-        </Set>
-    </Request>
-    <Response>sc-response</Response>
-    <HTTPTargetConnection>
-        <URL>https://xapi-dev.kurtkanaskie.net/logging-mock</URL>
-    </HTTPTargetConnection>
+    </Set>
+  </Request>
+  <Response>sc-response</Response>
+  <HTTPTargetConnection>
+    <URL>https://xapi-dev.kurtkanaskie.net/logging-mock</URL>
+  </HTTPTargetConnection>
 </ServiceCallout>

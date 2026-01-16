@@ -23,7 +23,7 @@ This code is open source.
 ## Prerequisites
 [Monetization must be purchased and enabled](https://cloud.google.com/apigee/docs/api-platform/monetization/enable) in the organization.
 
-Set your environment variables in `set_env_variales.sh` and `source set_env_variales.sh`:
+Set your environment variables in `set_env_variables.sh` and `source set_env_variables.sh`:
 ```
 export ORG=your_org_name
 export ENV=your_env_name
@@ -33,6 +33,7 @@ export SA_CREDS=/path/to/your/sa/keyfile.json
 export PORTAL_URL=admin_username
 export PORTAL_USERNAME=admin_username
 export PORTAL_PASSWORD=admin_password
+
 export ARGS="-Dapigee.org=$ORG \
     -Dapigee.env=$ENV \
     -Dapi.northbound.domain=$API \
@@ -148,7 +149,7 @@ mvn -P ${ENV} ${ARGS} apigee-config:targetservers
 mvn -P ${ENV} ${ARGS} apigee-config:resourcefiles
 
 # System.uuid for analytics not needed for Monetization, used for debugging.
-./create_datacollector.sh
+# ./create_datacollector.sh
 
 mvn -P ${ENV} ${ARGS} apigee-enterprise:configure
 mvn -P ${ENV} ${ARGS} apigee-enterprise:deploy
@@ -198,7 +199,13 @@ Use username not email for admin, e.g. maintenance
 
 ### Just update the API Specs in Drupal
 ```
-mvn -P ${ENV} ${ARGS} clean resources:copy-resources replacer:replace apigee-smartdocs:apidoc
+mvn -P ${ENV} -Dbearer=$(gcloud auth print-access-token) clean resources:copy-resources replacer:replace apigee-smartdocs:apidoc
+```
+### Just update the Integrated Portal API Specs
+Via process-resources after replacements or when in target
+```
+mvn -P dev -Dbearer=$(gcloud auth print-access-token) resources:copy-resources replacer:replace apigee-config:apicategories
+mvn -P dev -Dbearer=$(gcloud auth print-access-token) resources:copy-resources replacer:replace apigee-config:apidocs
 ```
 
 ## Clean Up (NOT TESTED)

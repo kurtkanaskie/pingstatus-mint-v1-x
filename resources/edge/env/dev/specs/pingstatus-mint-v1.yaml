@@ -3,11 +3,11 @@ info:
   version: 1.0.0
   title: pingstatus-mint-v1-test
   description:
-    Health checks for proxy (free, ping$) and target backend (status$$).
+    Health checks for proxy (free, $ping) and target backend ($$status).
   contact:
     email: kurtkanaskie@google.com
 servers:
-  - url: https://xapi-test.kurtkanaskie.net/pingstatus-mint/v1
+  - url: https://xapi-dev.kurtkanaskie.net/pingstatus-mint/v1
 paths:
   /free:
     get:

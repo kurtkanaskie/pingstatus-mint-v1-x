@@ -1,24 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <AssignMessage continueOnError="false" enabled="true" name="AM-free-response">
-    <!-- This is required otherwise "yyyy-MM-dd,system.timestamp" is reported as unresolved variable -->
-    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
-    <AssignVariable>
-        <!-- Can't use ':' in literal format -->
-        <Name>format_time</Name>
-        <Value>HH:mm:ss</Value>
-    </AssignVariable>
-    <Set>
-        <Payload contentType="application/json">
+  <!-- This is required otherwise "yyyy-MM-dd,system.timestamp" is reported as unresolved variable -->
+  <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+  <AssignVariable>
+    <!-- Can't use ':' in literal format -->
+    <Name>format_time</Name>
+    <Value>HH:mm:ss</Value>
+  </AssignVariable>
+  <Set>
+    <Headers>
+      <!-- Used for Monetization  -->
+      <Header name="X-Monetization-Success">false</Header>
+      <!-- Used for feedback  -->
+      <Header name="X-Monetization-Developer">{verifyapikey.VA-header.developer.email}</Header>
+      <Header name="X-Monetization-Application">{verifyapikey.VA-header.developer.app.name}</Header>
+      <Header name="X-Monetization-API-Product">{apiproduct.name}</Header>
+      <Header name="X-Monetization-Quota">{verifyapikey.VA-header.apiproduct.developer.quota.limit} per {verifyapikey.VA-header.apiproduct.developer.quota.interval} {verifyapikey.VA-header.apiproduct.developer.quota.timeunit}</Header>
+      <Header name="X-Monetization-Enforce">{ratelimit.QU-monetization-enforce.used.count} of {ratelimit.QU-monetization-enforce.allowed.count} with {ratelimit.QU-monetization-enforce.available.count} available and {ratelimit.QU-monetization-enforce.exceed.count} exceeded</Header>
+      <Header name="X-Monetization-Count">{ratelimit.QU-monetization-count.used.count} of {ratelimit.QU-monetization-count.allowed.count} with {ratelimit.QU-monetization-count.available.count} available and {ratelimit.QU-monetization-count.exceed.count} exceeded</Header>
+      <Header name="X-Quota-Enforce-Expires">{ratelimit.QU-monetization-enforce.expiry.time}</Header>
+      <Header name="X-Quota-Count-Expires">{ratelimit.QU-monetization-count.expiry.time}</Header>
+    </Headers>
+  </Set>
+  <Set>
+    <Payload contentType="application/json">
 {
     "system.uuid":"{system.uuid}",
     "client": "{client.host}",
     "organization": "{organization.name}",
     "environment": "{environment.name}",
-    "developerEmail": "{verifyapikey.VA-Header.developer.email}",
-    "developerFirstName": "{verifyapikey.VA-Header.developer.firstName}",
-    "developerLastName": "{verifyapikey.VA-Header.developer.lastName}",
-    "application": "{verifyapikey.VA-Header.developer.app.name}",
-    "product": "{verifyapikey.VA-Header.apiproduct.name}",
+    "developerEmail": "{verifyapikey.VA-header.developer.email}",
+    "developerFirstName": "{verifyapikey.VA-header.developer.firstName}",
+    "developerLastName": "{verifyapikey.VA-header.developer.lastName}",
+    "application": "{verifyapikey.VA-header.developer.app.name}",
+    "product": "{verifyapikey.VA-header.apiproduct.name}",
+    "apiproduct.operation":"{verifyapikey.VA-header.apiproduct.operation}",
+    "apiproduct.operation.resource":"{verifyapikey.VA-header.apiproduct.operation.resource}",
+    "apiproduct.operation.methods":"{verifyapikey.VA-header.apiproduct.operation.methods}",
+    "apiproduct.operation.attributes.operation":"{verifyapikey.VA-header.apiproduct.operation.attributes.operation}",
     "apiproxy": "{apiproxy.name}",
     "apiproxyRevision": "{apiproxy.revision}",
     "path": "{proxy.basepath}{proxy.pathsuffix}",
@@ -27,7 +46,6 @@
     "message":"FREE"
 }
 </Payload>
-        <StatusCode>200</StatusCode>
-        <ReasonPhrase>OK</ReasonPhrase>
-    </Set>
+    <StatusCode>200</StatusCode>
+  </Set>
 </AssignMessage>

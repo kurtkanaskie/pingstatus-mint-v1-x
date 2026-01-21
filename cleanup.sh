@@ -30,25 +30,26 @@ then
 fi
 echo Proceeding...
 
-mvn -P ${ENV} ${ARGS} -Dskip.integration=true -Dapigee.config.options=delete -Dapigee.options=clean \
+
+mvn -P "${ENV}" "${ARGS}" -Dskip.integration=true -Dapigee.config.options=delete -Dapigee.options=clean \
     process-resources \
     apigee-config:apps \
     apigee-config:apiproducts \
     apigee-config:developers \
     apigee-enterprise:deploy
 
-mvn -P ${ENV} ${ARGS} clean
-mvn -P ${ENV} ${ARGS} resources:copy-resources@copy-resources
-mvn -P ${ENV} ${ARGS} replacer:replace@replace
-mvn -P ${ENV} ${ARGS} apigee-config:apps -Dapigee.config.options=delete
-mvn -P ${ENV} ${ARGS} apigee-config:developers
-mvn -P ${ENV} ${ARGS} apigee-config:apiproducts
+mvn -P "${ENV}" "${ARGS}" clean
+mvn -P "${ENV}" "${ARGS}" resources:copy-resources@copy-resources
+mvn -P "${ENV}" "${ARGS}" replacer:replace@replace
+mvn -P "${ENV}" "${ARGS}" apigee-config:apps -Dapigee.config.options=delete
+mvn -P "${ENV}" "${ARGS}" apigee-config:developers
+mvn -P "${ENV}" "${ARGS}" apigee-config:apiproducts
 
 # delete the proxy
-mvn -P ${ENV} ${ARGS} apigee-enterprise:deploy -Dapigee.options=clean
+mvn -P "${ENV}" "${ARGS}" apigee-enterprise:deploy -Dapigee.options=clean
 
-mvn -P ${ENV} ${ARGS} apigee-config:resourcefiles
-mvn -P ${ENV} ${ARGS} apigee-config:targetservers
+mvn -P "${ENV}" "${ARGS}" apigee-config:resourcefiles
+mvn -P "${ENV}" "${ARGS}" apigee-config:targetservers
 
-mvn -P ${ENV} ${ARGS} clean
+mvn -P "${ENV}" "${ARGS}" clean
 rm -rf targetnode
